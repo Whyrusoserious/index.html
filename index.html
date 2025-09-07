@@ -538,9 +538,15 @@
       color: #4a148c;
     }
 
-    .visitor-counter span {
-      font-weight: bold;
+    .visitor-counter a {
       color: #7e57c2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .visitor-counter a:hover {
+      color: #4a148c;
+      text-decoration: underline;
     }
 
     /* Responsive adjustments */
@@ -647,7 +653,14 @@
             <p>Explore my nature photography in the Photography tab.</p>
           </div>
         </div>
-        <p class="visitor-counter">Visitors: <span id="visitorCount">Loading...</span></p>
+        <p class="visitor-counter">
+          Visitors: 
+          <span id="visitorCounter">
+            <a href='http://www.freevisitorcounters.com'>on freevisitorcounters.com</a>
+            <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=2bc8336ef611e2fb50109f9de600bbe23848479d'></script>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1386892/t/2"></script>
+          </span>
+        </p>
         <a href="#" class="cta-button" onclick="document.querySelector('[data-tab=music]').click()">Explore More!</a>
       </div>
     </div>
@@ -769,36 +782,6 @@
   </div>
 
   <script>
-    // Visitor Counter
-    function updateVisitorCount() {
-      const visitorCountElement = document.getElementById('visitorCount');
-      if (!sessionStorage.getItem('visited')) {
-        fetch('https://api.countapi.xyz/hit/judynguyen.world/visitors')
-          .then(response => response.json())
-          .then(data => {
-            visitorCountElement.textContent = data.value;
-            sessionStorage.setItem('visited', 'true');
-          })
-          .catch(error => {
-            console.error('Error fetching visitor count:', error);
-            visitorCountElement.textContent = 'Unavailable';
-          });
-      } else {
-        fetch('https://api.countapi.xyz/get/judynguyen.world/visitors')
-          .then(response => response.json())
-          .then(data => {
-            visitorCountElement.textContent = data.value;
-          })
-          .catch(error => {
-            console.error('Error fetching visitor count:', error);
-            visitorCountElement.textContent = 'Unavailable';
-          });
-      }
-    }
-
-    // Call the function when the page loads
-    document.addEventListener('DOMContentLoaded', updateVisitorCount);
-
     // Tab functionality
     const tabs = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
@@ -846,11 +829,14 @@
       { title: "Ngo Khong", artist: "Truong Ky - Bach Cu Cuong", videoId: "rCbdoo2wqrw" },
       { title: "Express Mode", artist: "SJ", videoId: "pykdDgWX7-M" },
       { title: "Whataya want from me", artist: "Adam Lambert", videoId: "X1Fqn9du7xo" },
+      { title: "Tho cau tu phanh ca", artist: "Gia Moc", videoId: "Y6bAnWGEmR4" },
       { title: "Bring me to life", artist: "Evanescence", videoId: "3YxaaGgTQYM" },
+      { title: "A letter - Tri", artist: "ONer", videoId: "gawWETs7dV0" },
       { title: "Numb", artist: "Linkin Park", videoId: "kXYiU_JCYtU" },
       { title: "It's my life", artist: "Bon Jovi", videoId: "vx2u5uUu3DE" },
       { title: "On the floor", artist: "J-Lo & Pitbull", videoId: "t4H_Zoh7G5A" },
-      { title: "Muon gap mat 1 lan", artist: "Cao Huc", videoId: "wTsFgDRFy0w" }
+      { title: "Dien vao khoang khong", artist: "Gia Moc", videoId:"5EFDy3VmZIM" },
+      { title: "Muon gap lai 1 lan", artist: "Cao Huc", videoId:"wTsFgDRFy0w" },
     ];
 
     function renderPlaylist() {
@@ -914,4 +900,3 @@
   </script>
 </body>
 </html>
-
