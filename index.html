@@ -654,7 +654,8 @@
           </div>
         </div>
         <p class="visitor-counter">
-            <span id="visitor">
+          Visitors: 
+          <span id="visitorCounter">
             <a href='http://www.freevisitorcounters.com'>on freevisitorcounters.com</a>
             <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=2bc8336ef611e2fb50109f9de600bbe23848479d'></script>
             <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1386892/t/2"></script>
@@ -689,21 +690,29 @@
       <div class="section">
         <h2>My Gaming Journey</h2>
         <p>I enjoy playing various types of games. Here are some of my favorites:</p>
-        <div class="hobbies-list">
-          <div class="hobby-item">
-            <h3 class="hobby-title"><i class="fas fa-gamepad"></i> Action Games</h3>
-            <p class="hobby-description">I love the adrenaline rush from fast-paced action games.</p>
+        <div class="gallery">
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas fa-users"></i> Onmyoji</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/6974e0d52f63673e7f61085132e49cf3.jpg?raw=true" alt="Onmyoji">
+            <p class="gallery-caption">Onmyoji is a 3D RPG developed by NetEase Games. Follow the legendary onmyoji Seimei in his journey to recover his lost memories while encountering demons of all shapes and forms. Unravel the supernatural tales of the shikigami, spirits, and demons, and listen to their inner voices. The game can be played on PC, Android and iOS.</p>
           </div>
-          <div class="hobby-item">
-            <h3 class="hobby-title"><i class="fas fa-puzzle-piece"></i> Puzzle Games</h3>
-            <p class="hobby-description">Solving puzzles challenges my mind and keeps me engaged for hours.</p>
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas fa-users"></i> Animal Crossing</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/c29af78d0a359c0ba24a18a579d09a78.jpg?raw=true" alt="Animal Crossing">
+            <p class="gallery-caption">Animal Crossing: New Horizons is a social simulation game for the Nintendo Switch, released worldwide on March 20, 2020. As the latest installment in the Animal Crossing series, it lets you escape to a deserted island to build and customize your own paradise.</p>
           </div>
-          <div class="hobby-item">
-            <h3 class="hobby-title"><i class="fas fa-users"></i> Multiplayer Games</h3>
-            <p class="hobby-description">Playing with friends makes gaming even more enjoyable.</p>
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas fa-users"></i> Pokemon Unite</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/pu.jpg?raw=true" alt="Pokemon Unite">
+            <p class="gallery-caption">Pokemon UNITE is a MOBA (Multiplayer Online Battle Arena) which is changing the nature of Pokemon Battles. Engage in exciting 5v5 online battles, where your Pokemon gain levels during the battle and power up to take out the other team! Learn about all the Pokemon, gameplay, builds, tier lists, items, and everything you need to know for Pokemon UNITE here at Game8.</p>
+          </div>
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas role-playing"></i> Yokai Watch</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/yokai_watch.jpg?raw=true" alt="Yokai Watch">
+            <p class="gallery-caption">Yo-kai Watch is a role-playing video game series and associated media franchise created and developed by Level-5. The first game in the series was released for the Nintendo 3DS in 2013</p>
           </div>
         </div>
-        <p>More gaming content coming soon!</p>
+        <p>I also like all kind of Pokemon games, SOS Oliver town, etc... </p>
       </div>
     </div>
 
@@ -812,11 +821,15 @@
     let currentSongIndex = 0;
     const playlist = [
       { title: "Thank U", artist: "Uknow", videoId: "ZL8jYBVef7U" },
+      { title: "Nao co de tam toi", artist: "Cao Huc", videoId: "WHukKkFSKbo" },
+      { title: "Nguoi noi doi truoc", artist: "h3R3", videoId: "BvtQdYViEsQ" },
+      { title: "Melatonin", artist: "Giang Hao Nam", videoId: "n9La_XLxAR0" },
       { title: "Insomnia", artist: "Wheesung", videoId: "1iTT2csCtYY" },
       { title: "Weekend", artist: "JangWooHyuk", videoId: "9vm5YuiueWo" },
+      { title: "Gui quan mot khuc", artist: "Chap To He", videoId: "zWTeLOLYITo"},
       { title: "Love and Deepspace", artist: "Sarah Brightman", videoId: "urONohYpdVA" },
+      { title: "Khong the quen duoc em", artist: "h3R3", videoId: "lNCBLSmenYc" },
       { title: "Broken Hero", artist: "Elena Westermann ft 2WEI", videoId: "NwEt3cqoYhA" },
-      { title: "Tonight", artist: "BIGBANG", videoId: "8d5QEWdHchk" },
       { title: "Trung phung", artist: "Ung Gia Loi - Tru Tien OST", videoId: "ukywLX-KL7I" },
       { title: "Huong vi tieu tan", artist: "Cao Huc", videoId: "xbvKUsi9Pa4" },
       { title: "Yen Vo Hiet", artist: "Tuong Tuyet Nhi", videoId: "lNCViM7R8N8" },
@@ -828,13 +841,14 @@
       { title: "Ngo Khong", artist: "Truong Ky - Bach Cu Cuong", videoId: "rCbdoo2wqrw" },
       { title: "Express Mode", artist: "SJ", videoId: "pykdDgWX7-M" },
       { title: "Whataya want from me", artist: "Adam Lambert", videoId: "X1Fqn9du7xo" },
-      { title: "Tho cau tu phanh ca", artist: "Gia Moc", videoId: "Y6bAnWGEmR4" },
+      { title: "Tho tu cau phanh ca", artist: "Gia Moc", videoId: "Y6bAnWGEmR4" },
       { title: "Bring me to life", artist: "Evanescence", videoId: "3YxaaGgTQYM" },
       { title: "A letter - Tri", artist: "ONer", videoId: "gawWETs7dV0" },
       { title: "Numb", artist: "Linkin Park", videoId: "kXYiU_JCYtU" },
       { title: "It's my life", artist: "Bon Jovi", videoId: "vx2u5uUu3DE" },
       { title: "On the floor", artist: "J-Lo & Pitbull", videoId: "t4H_Zoh7G5A" },
       { title: "Dien vao khoang khong", artist: "Gia Moc", videoId:"5EFDy3VmZIM" },
+      { title: "Dong tuoc dai", artist: "Gia Moc", videoId:"N1BE2H8P-TU" },
       { title: "Muon gap lai 1 lan", artist: "Cao Huc", videoId:"wTsFgDRFy0w" },
     ];
 
@@ -899,4 +913,3 @@
   </script>
 </body>
 </html>
-
