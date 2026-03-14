@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Judy Nguyen — My World</title>
+  <title>Judy Nguyen * My World</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -920,6 +920,9 @@
   setInterval(updateClock, 1000);
   updateClock();
 
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
   // Tabs
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -931,13 +934,10 @@
     });
   });
 
- // Current Year for Footer
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  let player;
+  let currentSongIndex = 0;
 
-    // YouTube Player
-    let player;
-    let currentSongIndex = 0;
-    const playlist = [
+  const playlist = [
       { title: "Thank U", artist: "Uknow", videoId: "ZL8jYBVef7U" },
       { title: "Nao co de tam toi", artist: "Cao Huc", videoId: "WHukKkFSKbo" },
       { title: "Nguoi noi doi truoc", artist: "h3R3", videoId: "BvtQdYViEsQ" },
@@ -968,84 +968,103 @@
       { title: "Dien vao khoang khong", artist: "Gia Moc", videoId: "5EFDy3VmZIM" },
       { title: "Dong tuoc dai", artist: "Gia Moc", videoId: "N1BE2H8P-TU" },
       { title: "Muon gap lai 1 lan", artist: "Cao Huc", videoId: "wTsFgDRFy0w" },
-    ];
+  ];
 
-    function renderPlaylist() {
-      const playlistMenu = document.getElementById('playlist-list');
-      playlistMenu.innerHTML = '';
-      playlist.forEach((song, index) => {
-        const songItem = document.createElement('div');
-        songItem.className = `song-item ${index === currentSongIndex ? 'active' : ''}`;
-        songItem.innerHTML = `
-          <div>
-            <div class="song-title">${song.title}</div>
-            <div class="song-artist">${song.artist}</div>
-          </div>
-          <i class="fas fa-play-circle text-2xl text-[#fbc02d]"></i>
-        `;
-        songItem.addEventListener('click', () => {
-          currentSongIndex = index;
-          player.loadVideoById(song.videoId);
-          renderPlaylist();
-        });
-        songItem.setAttribute('tabindex', '0');
-        songItem.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            currentSongIndex = index;
-            player.loadVideoById(song.videoId);
-            renderPlaylist();
-          }
-        });
-        playlistMenu.appendChild(songItem);
+  // Update Now Playing
+  function updateNowPlaying() {
+    const song = playlist[currentSongIndex];
+    document.getElementById('np-title').textContent = song.title;
+    document.getElementById('np-artist').textContent = song.artist;
+  }
+
+  // Render playlist
+  function renderPlaylist() {
+
+    const playlistMenu = document.getElementById('playlist-list');
+    playlistMenu.innerHTML = '';
+
+    playlist.forEach((song, index) => {
+
+      const songItem = document.createElement('div');
+
+      songItem.className = `song-item ${index === currentSongIndex ? 'active' : ''}`;
+
+      songItem.innerHTML = `
+        <div class="song-num">${index + 1}</div>
+        <div class="song-info">
+          <div class="song-title">${song.title}</div>
+          <div class="song-artist">${song.artist}</div>
+        </div>
+      `;
+
+      songItem.addEventListener('click', () => {
+        currentSongIndex = index;
+        player.loadVideoById(song.videoId);
+        updateNowPlaying();
+        renderPlaylist();
       });
-    }
 
-    function onYouTubeIframeAPIReady() {
-      try {
-        player = new YT.Player('yt-player', {
-          height: '360',
-          width: '100%',
-          videoId: playlist[currentSongIndex].videoId,
-          playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0 },
-          events: {
-            'onReady': () => {
-            document.getElementById('yt-loading').style.display = 'none';
-            renderPlaylist();
-            },
-            'onStateChange': (e) => {
-              if (e.data === YT.PlayerState.ENDED) nextVideo();
-            },
-            'onError': (error) => {
-              console.error("YouTube Player Error:", error);
-              document.querySelector('.yt-loading').innerHTML = '<p style="color: #fbc02d;">Error loading video</p>';
-            }
+      playlistMenu.appendChild(songItem);
+    });
+
+    document.getElementById("playlist-count").textContent = playlist.length;
+  }
+
+  // YouTube Player
+  function onYouTubeIframeAPIReady() {
+
+    player = new YT.Player('yt-player', {
+
+      videoId: playlist[currentSongIndex].videoId,
+
+      playerVars: {
+        autoplay: 0,
+        controls: 1,
+        rel: 0
+      },
+
+      events: {
+
+        onReady: () => {
+
+          document.getElementById('yt-loading').style.display = 'none';
+          updateNowPlaying();
+          renderPlaylist();
+
+        },
+
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.ENDED) {
+            nextVideo();
           }
-        });
-      } catch (error) {
-        console.error("YouTube Player Initialization Error:", error);
-        document.querySelector('.yt-loading').innerHTML = '<p style="color: #fbc02d;">Error initializing player</p>';
+        }
       }
-    }
+    });
+  }
 
-    function playVideo() { if (player) player.playVideo(); }
-    function pauseVideo() { if (player) player.pauseVideo(); }
-    function stopVideo() { if (player) player.stopVideo(); }
-    function nextVideo() {
-      currentSongIndex = (currentSongIndex + 1) % playlist.length;
-      player.loadVideoById(playlist[currentSongIndex].videoId);
-      renderPlaylist();
-    }
-    function prevVideo() {
-      currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-      player.loadVideoById(playlist[currentSongIndex].videoId);
-      renderPlaylist();
-    }
+  function playVideo() { player.playVideo(); }
+  function pauseVideo() { player.pauseVideo(); }
+  function stopVideo() { player.stopVideo(); }
 
-    // Load YouTube API
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.body.appendChild(tag);
-  </script>
+  function nextVideo() {
+    currentSongIndex = (currentSongIndex + 1) % playlist.length;
+    player.loadVideoById(playlist[currentSongIndex].videoId);
+    updateNowPlaying();
+    renderPlaylist();
+  }
+
+  function prevVideo() {
+    currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+    player.loadVideoById(playlist[currentSongIndex].videoId);
+    updateNowPlaying();
+    renderPlaylist();
+  }
+
+  // Load YouTube API
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+
+</script>
 </body>
 </html>
