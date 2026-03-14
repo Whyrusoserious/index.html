@@ -1,1121 +1,836 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Judy Nguyen • Portfolio</title>
-  <meta name="description" content="A cozy portfolio of music, games, art, photography, and writing." />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>JudyNguyen's World</title>
+  <!-- Preconnect to external resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
-
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Dancing+Script:wght@700&family=Georgia:wght@400;700&display=swap">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    :root{
-      /* ── Smoother palette: warmer neutrals, softer accents, tighter range ── */
-      --paper:    #fdf6ed;
-      --paper-2:  #fffcf7;
-      --ink:      #2e1a0e;
-      --muted:    #6b4c2a;
-
-      --moss:     #5a8060;
-      --sage:     #b0cb98;
-      --tea:      #ddd5b6;
-
-      --sky:      #aecfe8;
-      --pond:     #68b2b2;
-      --sunset:   #f2b07a;
-      --rose:     #e8a8b5;
-      --gold:     #f5d888;
-      --blush:    #f7e0d4;
-      --lavender: #d4cce8;
-
-      --line:        rgba(46,26,14,.13);
-      --shadow:      0 14px 38px rgba(46,26,14,.10);
-      --shadow-soft: 0 8px 20px rgba(46,26,14,.07);
-
-      --radius:    18px;
-      --radius-lg: 26px;
-      --max:       1100px;
-
-      --font-ui:    "Zen Maru Gothic", system-ui, sans-serif;
-      --font-title: "Shippori Mincho", ui-serif, Georgia, serif;
-
-      /* Music player */
-      --player-h: 72px;
-    }
-
-    *{ box-sizing: border-box; }
-    img{ max-width: 100%; display: block; }
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: underline; text-underline-offset: 4px; }
-
-    body{
+    body {
+      font-family: 'Quicksand', sans-serif;
       margin: 0;
-      font-family: var(--font-ui);
-      color: var(--ink);
-      /* Smoother, more blended gradient background */
-      background:
-        radial-gradient(1200px 800px at 12% 8%,  rgba(242,176,122,.20), transparent 60%),
-        radial-gradient(1000px 700px at 88% 4%,  rgba(174,207,232,.18), transparent 55%),
-        radial-gradient(900px  700px at 68% 88%, rgba(232,168,181,.16), transparent 58%),
-        radial-gradient(750px  550px at  8% 88%, rgba(176,203,152,.18), transparent 60%),
-        radial-gradient(600px  400px at 50% 50%, rgba(247,224,212,.14), transparent 65%),
-        linear-gradient(170deg, var(--paper-2) 0%, var(--paper) 100%);
+      padding: 20px;
+      color: #333;
+      min-height: 100vh;
+      background: 
+        linear-gradient(135deg, rgba(106, 27, 154, 0.8), rgba(251, 192, 45, 0.8)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1500&q=80');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    .header-table td {
+      vertical-align: middle;
+      padding: 20px;
+    }
+
+    .avatar-cell {
+      width: 180px;
       position: relative;
-      overflow-x: hidden;
-      padding-bottom: calc(var(--player-h) + 20px);
     }
 
-    /* Subtle paper grain */
-    body::before{
-      content:"";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .08;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(46,26,14,.06), rgba(46,26,14,.06) 1px, transparent 1px, transparent 3px),
-        repeating-linear-gradient(90deg, rgba(46,26,14,.04), rgba(46,26,14,.04) 1px, transparent 1px, transparent 4px);
-      mix-blend-mode: multiply;
-      z-index: 0;
-    }
-
-    .wrap{
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
+    .avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 12px solid #b91a8c;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       position: relative;
       z-index: 1;
+      transition: all 0.4s ease;
     }
 
-    /* ── Top bar ── */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(253,246,237,.72);
-      border-bottom: 1px solid var(--line);
-      box-shadow: 0 8px 22px rgba(46,26,14,.05);
-    }
-    .topbar-inner{
-      display: flex;
-      align-items: center;
-      padding: 10px 0;
-      gap: 14px;
-    }
-    .brand{ display: flex; align-items: center; gap: 10px; }
-    .logo{
-      width: 34px; height: 34px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid rgba(46,26,14,.12);
-      box-shadow: var(--shadow-soft);
-      flex-shrink: 0;
-    }
-    .brand-title{ display: grid; line-height: 1.05; }
-    .brand-title strong{ font-family: var(--font-title); font-size: 16px; letter-spacing: .4px; }
-    .brand-title span{ font-size: 12px; color: var(--muted); }
-
-    /* ── Layout ── */
-    main{ padding: 22px 0 10px; }
-    .layout{
-      display: grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 18px;
-      align-items: start;
-      padding: 12px 0 18px;
-    }
-    .stack{ display: flex; flex-direction: column; gap: 14px; }
-
-    /* ── Panel base ── */
-    .panel{
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--line);
-      background: rgba(255,252,247,.65);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-      transition: box-shadow .3s ease;
-    }
-    .panel:hover{ box-shadow: 0 18px 46px rgba(46,26,14,.13); }
-    .panel::before{
-      content:"";
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(800px 300px at 15% 0%,   rgba(242,176,122,.18), transparent 58%),
-        radial-gradient(720px 380px at 92% 28%,  rgba(174,207,232,.16), transparent 60%),
-        radial-gradient(600px 380px at 32% 115%, rgba(176,203,152,.14), transparent 55%);
-      pointer-events: none;
-    }
-    .panel > *{ position: relative; z-index: 1; }
-
-    /* ── Hero ── */
-    .hero{ padding: 22px 22px 18px; }
-
-    .kicker{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 7px 13px;
-      border-radius: 999px;
-      border: 1px solid rgba(46,26,14,.12);
-      background: rgba(255,255,255,.50);
-      color: rgba(46,26,14,.80);
-      font-size: 13px;
-      width: fit-content;
-    }
-    .dot{
-      width: 8px; height: 8px;
-      border-radius: 99px;
-      background: linear-gradient(180deg, rgba(90,128,96,.95), rgba(245,216,136,.85));
-      box-shadow: 0 0 0 3px rgba(90,128,96,.14);
-      animation: pulse 2.8s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%,100%{ box-shadow: 0 0 0 3px rgba(90,128,96,.14); }
-      50%{     box-shadow: 0 0 0 6px rgba(90,128,96,.06); }
+    .avatar:hover {
+      transform: scale(1.1) rotate(8deg);
+      box-shadow: 0 10px 30px rgba(106, 27, 154, 0.6);
+      border-color: #6a1b9a;
     }
 
-    h1{
-      font-family: var(--font-title);
-      margin: 14px 0 10px;
-      font-size: clamp(28px, 3vw, 42px);
-      letter-spacing: .3px;
-      line-height: 1.08;
-    }
-    .subtitle{
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.65;
-      max-width: 62ch;
-    }
-    .hero-actions{
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 6px;
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(106, 27, 154, 0.8); }
+      70% { box-shadow: 0 0 0 20px rgba(106, 27, 154, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(106, 27, 154, 0); }
     }
 
-    .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(46,26,14,.13);
-      background: rgba(255,255,255,.48);
-      box-shadow: var(--shadow-soft);
-      font-size: 13px;
-      font-family: var(--font-ui);
-      cursor: pointer;
-      transition: transform .18s ease, background .22s ease, box-shadow .22s ease;
-    }
-    .btn:hover{
-      text-decoration: none;
-      background: rgba(242,176,122,.20);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(46,26,14,.11);
-    }
-    .btn.primary{
-      background: linear-gradient(135deg,
-        rgba(90,128,96,.80),
-        rgba(245,216,136,.72),
-        rgba(242,176,122,.74));
-      color: #1e1208;
-      border-color: rgba(46,26,14,.08);
-    }
-
-    /* Decorative leaf */
-    .leaf{
+    .avatar-cell::before {
+      content: '';
       position: absolute;
-      right: -55px; top: 52%;
-      width: 130px; height: 130px;
-      opacity: .28;
-      transform: translateY(-50%) rotate(12deg);
-      filter: blur(.3px);
-      animation: drift 9s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-    @keyframes drift{
-      0%,100%{ transform: translateY(-50%) rotate(10deg) translateX(0); }
-      50%{     transform: translateY(-54%) rotate(16deg) translateX(-10px); }
-    }
-
-    /* ── Featured tabs ── */
-    .section-head{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 14px;
-      margin: 0 0 10px;
-    }
-    .section-head h2{ margin: 0; font-family: var(--font-title); font-size: 20px; letter-spacing: .3px; }
-    .section-head .hint{ color: var(--muted); font-size: 13px; line-height: 1.4; max-width: 55ch; }
-
-    .featured-grid{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 14px;
-    }
-
-    .card{
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.38);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      position: relative;
-      text-align: left;
-      transition: transform .22s ease, box-shadow .22s ease;
-    }
-    .card::before{
-      content:""; position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(500px 230px at 10% 0%,  rgba(245,216,136,.16), transparent 62%),
-        radial-gradient(500px 250px at 110% 40%, rgba(174,207,232,.14), transparent 62%);
-      opacity: .75;
-    }
-    .card > *{ position: relative; z-index: 1; }
-
-    .thumb{
-      aspect-ratio: 4/3;
-      background:
-        radial-gradient(200px 130px at 25% 25%, rgba(242,176,122,.20), transparent 60%),
-        radial-gradient(200px 130px at 75% 55%, rgba(90,128,96,.16), transparent 60%),
-        linear-gradient(135deg, rgba(255,255,255,.48), rgba(255,255,255,.20));
-      border-bottom: 1px solid var(--line);
-      overflow: hidden;
-    }
-    .thumb img{
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      display: block;
-      opacity: .97;
-      transform: scale(1.01);
-      transition: transform .30s ease, filter .30s ease;
-      filter: saturate(1.04) contrast(.99);
-    }
-    .card:hover .thumb img{
-      transform: scale(1.06);
-      filter: saturate(1.10) contrast(1.0);
-    }
-    .feature-tab:focus-visible{ outline: 3px solid rgba(104,178,178,.38); outline-offset: 3px; border-radius: var(--radius); }
-    .feature-tab[aria-selected="true"] .card{
-      border-color: rgba(104,178,178,.50);
-      box-shadow: 0 14px 32px rgba(46,26,14,.12);
-      transform: translateY(-2px);
-    }
-
-    .content{ padding: 14px; }
-    .content h3{ margin: 0 0 6px; font-size: 14px; font-family: var(--font-title); letter-spacing: .2px; }
-    .content p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
-    .meta{ display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; color: rgba(46,26,14,.65); font-size: 12px; }
-
-    .feature-tab{
-      width: 100%; border: none; padding: 0;
-      cursor: pointer; background: transparent; font: inherit;
-    }
-
-    /* ── Feature panels ── */
-    .feature-panels{ margin-top: 14px; }
-    .feature-panel{
-      display: none;
-      padding: 14px;
-      border-top: 1px dashed rgba(46,26,14,.13);
-    }
-    .feature-panel.active{
-      display: block;
-      animation: fadeUp .28s ease;
-    }
-    @keyframes fadeUp{
-      from{ opacity: 0; transform: translateY(10px); }
-      to{   opacity: 1; transform: translateY(0); }
-    }
-
-    .panel-grid{ display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .box{
-      border-radius: var(--radius);
-      border: 1px solid rgba(46,26,14,.12);
-      background: rgba(255,255,255,.38);
-      box-shadow: var(--shadow-soft);
-      padding: 14px;
-    }
-    .box h4{ font-family: var(--font-title); margin: 0 0 8px; font-size: 16px; letter-spacing: .2px; }
-    .box p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
-
-    /* ── Song row ── */
-    .song-row{
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 11px 10px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      transition: background .18s ease, border-color .18s ease, transform .15s ease;
-      cursor: default;
-    }
-    .song-row:hover{
-      background: rgba(242,176,122,.10);
-      border-color: rgba(46,26,14,.08);
-      transform: translateX(3px);
-    }
-    .song-row + .song-row{
-      border-top: 1px solid rgba(46,26,14,.07);
-      border-radius: 0 0 12px 12px;
-    }
-    .song-row:first-child{ border-radius: 12px 12px 0 0; }
-    .song-row:only-child{ border-radius: 12px; }
-
-    .song-num{
-      font-size: 12px;
-      color: rgba(46,26,14,.35);
-      width: 18px;
-      text-align: right;
-      flex-shrink: 0;
-      font-family: var(--font-title);
-    }
-    .song-info{ flex: 1; min-width: 0; }
-    .song-info strong{
-      display: block;
-      font-size: 13px;
-      letter-spacing: .2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .song-info span{
-      font-size: 11px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-    }
-    .song-open{
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(46,26,14,.12);
-      background: rgba(255,255,255,.52);
-      font-size: 11px;
-      color: var(--ink);
-      cursor: pointer;
-      flex-shrink: 0;
-      text-decoration: none;
-      transition: transform .15s ease, background .18s ease, border-color .18s ease;
-    }
-    .song-open:hover{
-      text-decoration: none;
-      background: rgba(255,80,80,.10);
-      border-color: rgba(255,80,80,.25);
-      transform: translateY(-1px);
-    }
-    .song-open svg{ width: 12px; height: 12px; flex-shrink: 0; }
-
-    /* Legacy track styles kept for floating player compat */
-    .track{ display: none; }
-    .track-play{ display: none; }
-
-    .gallery{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 12px;
-    }
-    .tile{
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid rgba(46,26,14,.12);
-      background: rgba(255,255,255,.32);
-      box-shadow: var(--shadow-soft);
-      transition: transform .22s ease, box-shadow .22s ease;
-    }
-    .tile:hover{ transform: translateY(-3px); box-shadow: 0 14px 28px rgba(46,26,14,.12); }
-    .tile .tile-img{ aspect-ratio: 4/3; overflow: hidden; }
-    .tile img{ width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .30s ease; }
-    .tile:hover img{ transform: scale(1.05); }
-    .tile .tile-cap{ padding: 10px 12px; font-size: 12px; color: var(--muted); line-height: 1.4; }
-
-    /* ── Sidebar ── */
-    .mini-card{
-      border-radius: var(--radius);
-      border: 1px solid rgba(46,26,14,.12);
-      background: rgba(255,255,255,.42);
-      box-shadow: var(--shadow-soft);
-      padding: 14px;
-      position: relative;
-      overflow: hidden;
-      transition: box-shadow .25s ease;
-    }
-    .mini-card:hover{ box-shadow: 0 14px 34px rgba(46,26,14,.11); }
-    .mini-card::after{
-      content:""; position: absolute; inset: -1px;
-      background:
-        radial-gradient(240px 140px at 18% 16%, rgba(232,168,181,.20), transparent 58%),
-        radial-gradient(240px 160px at 88% 38%, rgba(174,207,232,.18), transparent 58%),
-        radial-gradient(240px 160px at 38% 112%, rgba(176,203,152,.16), transparent 55%);
-      pointer-events: none;
-    }
-    .mini-card > *{ position: relative; z-index: 1; }
-    .mini-card h3{ margin: 0 0 8px; font-size: 16px; letter-spacing: .2px; font-family: var(--font-title); }
-    .mini-card p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
-
-    .mini-thumb{
-      margin-top: 10px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(46,26,14,.12);
-      background: rgba(255,255,255,.35);
-      aspect-ratio: 16/10;
-    }
-    .mini-thumb img{ width: 100%; height: 100%; object-fit: cover; object-position: center; }
-
-    .links{ display: grid; gap: 8px; margin-top: 10px; font-size: 13px; }
-    .links a{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(46,26,14,.10);
-      background: rgba(255,255,255,.36);
-      transition: .22s ease;
-      cursor: pointer;
-    }
-    .links a:hover{
-      text-decoration: none;
-      transform: translateY(-1px);
-      background: rgba(174,207,232,.18);
-      border-color: rgba(104,178,178,.22);
-    }
-
-    /* ── Footer ── */
-    footer{
-      padding: 20px 0 34px;
-      color: var(--muted);
-      border-top: 1px solid rgba(46,26,14,.10);
-      margin-top: 10px;
-    }
-    .footer-inner{
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .small{ font-size: 12px; line-height: 1.6; }
-
-    /* ════════════════════════════════════════
-       FLOATING MUSIC PLAYER
-    ════════════════════════════════════════ */
-    #fmp{
-      position: fixed;
-      bottom: 18px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #b91a8c, #6a1b9a);
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%) translateY(0);
-      z-index: 100;
-
-      display: flex;
-      align-items: center;
-      gap: 14px;
-
-      height: var(--player-h);
-      padding: 0 18px;
-      min-width: 340px;
-      max-width: calc(100vw - 36px);
-
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.55);
-      background: rgba(253,246,237,.78);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow:
-        0 20px 50px rgba(46,26,14,.18),
-        0 4px 12px rgba(46,26,14,.10),
-        inset 0 1px 0 rgba(255,255,255,.70);
-
-      transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease, box-shadow .3s ease;
-    }
-    #fmp.hidden{
-      transform: translateX(-50%) translateY(calc(100% + 28px));
-      opacity: 0;
-      pointer-events: none;
-    }
-    #fmp:hover{
-      box-shadow:
-        0 26px 60px rgba(46,26,14,.20),
-        0 6px 16px rgba(46,26,14,.12),
-        inset 0 1px 0 rgba(255,255,255,.70);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      animation: pulse 1.8s infinite;
     }
 
-    /* Album art */
-    .fmp-art{
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 1px solid rgba(46,26,14,.12);
-      box-shadow: 0 4px 10px rgba(46,26,14,.14);
-      flex-shrink: 0;
-      transition: transform .6s ease;
-    }
-    #fmp.is-playing .fmp-art{
-      animation: spin-art 18s linear infinite;
-    }
-    @keyframes spin-art{
-      to{ transform: rotate(360deg); }
+    .avatar-cell:hover::before {
+      animation: pulse 1.2s infinite;
     }
 
-    /* Track info */
-    .fmp-info{
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .fmp-title{
-      font-size: 13px;
-      font-family: var(--font-title);
-      letter-spacing: .3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .fmp-artist{
-      font-size: 11px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .welcome-message {
+      padding-left: 40px;
+      border-left: 3px dashed #fbc02d;
     }
 
-    /* Progress bar */
-    .fmp-progress{
+    .welcome-message h2 {
+      font-family: Georgia, 'Times New Roman', Times, serif, cursive;
+      font-size: 45px;
+      px;
+      margin: 0;
+      color: #333;
+      text-align: left;
+      background: linear-gradient(90deg, #6a1b9a, #232222);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+      animation: shine 2.5s infinite linear;
+    }
+
+    @keyframes shine {
+      0% { letter-spacing: 0px; }
+      50% { letter-spacing: 3px; }
+      100% { letter-spacing: 0px; }
+    }
+
+    .welcome-message h2::after {
+      content: '';
       position: absolute;
-      bottom: 0; left: 70px; right: 160px;
-      height: 3px;
-      background: rgba(46,26,14,.10);
-      border-radius: 99px;
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .fmp-progress-fill{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--pond), var(--sunset));
-      border-radius: 99px;
-      transition: width .5s linear;
+      width: 100%;
+      height: 4px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, #6a1b9a, #fbc02d);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: welcomeUnderline 2s ease-in-out infinite alternate;
     }
 
-    /* Controls */
-    .fmp-controls{
+    @keyframes welcomeUnderline {
+      0% { transform: scaleX(0); transform-origin: left; }
+      50% { transform: scaleX(1); transform-origin: left; }
+      51% { transform: scaleX(1); transform-origin: right; }
+      100% { transform: scaleX(0); transform-origin: right; }
+    }
+
+    .digital-clock {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 28px;
+      color: #6a1b9a;
+      font-weight: 600;
+      text-shadow: 0 0 8px rgba(106, 27, 154, 0.5);
+      animation: clockGlow 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes clockGlow {
+      from { text-shadow: 0 0 5px rgba(106, 27, 154, 0.3); }
+      to { text-shadow: 0 0 15px rgba(106, 27, 154, 0.7); }
+    }
+
+    .tabs {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
+      justify-content: center;
+      margin: 30px 0;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    .fmp-btn{
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      border: 1px solid rgba(46,26,14,.12);
-      background: rgba(255,255,255,.50);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
+
+    .tab-button {
+      padding: 14px 28px;
+      background: linear-gradient(145deg, #fbc02d, #b39ddb);
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
-      transition: transform .15s ease, background .18s ease;
-      flex-shrink: 0;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
-    .fmp-btn:hover{ transform: scale(1.12); background: rgba(104,178,178,.20); }
-    .fmp-btn.play-btn{
-      width: 42px; height: 42px;
-      background: linear-gradient(135deg, rgba(90,128,96,.80), rgba(245,216,136,.72));
-      border-color: rgba(46,26,14,.08);
+
+    .tab-button:hover {
+      background: linear-gradient(145deg, #b39ddb, #fbc02d);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(145deg, #6a1b9a, #fbc02d);
+      color: white;
+      box-shadow: 0 6px 12px rgba(106, 27, 154, 0.5);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section {
+      margin-top: 40px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .yt-video {
+      width: 100%;
+      height: 360px;
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .player-controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      background: linear-gradient(145deg, #6a1b9a, #fbc02d);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Quicksand', sans-serif;
       font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
-    .fmp-btn.play-btn:hover{ background: linear-gradient(135deg, rgba(90,128,96,.92), rgba(245,216,136,.84)); }
 
-    /* Volume */
-    .fmp-vol{
+    button:hover {
+      background: linear-gradient(145deg, #fbc02d, #6a1b9a);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+    .playlist-menu {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 20px;
+      max-height: 350px;
+      overflow-y: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .song-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      margin: 8px 0;
+      background: linear-gradient(145deg, #eceff1, #f5f5f5);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 5px solid transparent;
+    }
+
+    .song-item:hover {
+      background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+      transform: translateX(8px);
+      border-left: 5px solid #fbc02d;
+    }
+
+    .song-item.active {
+      background: linear-gradient(145deg, #e0e0e0, #cecece);
+      border-left: 5px solid #6a1b9a;
+      font-weight: 600;
+    }
+
+    .song-title {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .song-artist {
+      font-size: 14px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .hobbies-list, .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
+    }
+
+    .hobby-item, .highlight-item {
+      background: linear-gradient(145deg, #fff, #f5f5f5);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hobby-item:hover, .highlight-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .hobby-item::before, .highlight-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, #6a1b9a, #fbc02d);
+    }
+
+    .hobby-title, .highlight-item h3 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
     }
-    .fmp-vol-icon{ font-size: 13px; color: var(--muted); }
-    input[type=range].fmp-range{
-      -webkit-appearance: none;
-      appearance: none;
+
+    .hobby-title i {
+      margin-right: 12px;
+      color: #6a1b9a;
+    }
+
+    .hobby-description, .highlight-item p {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      loading: lazy;
+    }
+
+    .gallery-caption {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      color: #fbc02d;
+      font-size: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: #6a1b9a;
+      transform: translateY(-4px) scale(1.3);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 25px;
+      border-top: 2px solid #fbc02d;
+      color: #333;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%236a1b9a'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%236a1b9a'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%236a1b9a'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    footer a[href*="github"]::after {
+      content: '❤️';
+      position: relative;
+      margin-left: 5px;
+      animation: heartbeat 1.2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      from { transform: scale(1); }
+      10% { transform: scale(0.9); }
+      20% { transform: scale(1.1); }
+      40% { transform: scale(0.95); }
+      60% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .yt-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 360px;
+      background: #f5f5f5;
+      border-radius: 12px;
+    }
+
+    .spinner {
       width: 60px;
-      height: 3px;
-      border-radius: 99px;
-      background: rgba(46,26,14,.14);
-      outline: none;
-      cursor: pointer;
-    }
-    input[type=range].fmp-range::-webkit-slider-thumb{
-      -webkit-appearance: none;
-      width: 12px; height: 12px;
+      height: 60px;
+      border: 6px solid rgba(106, 27, 154, 0.3);
       border-radius: 50%;
-      background: var(--pond);
-      border: 2px solid white;
-      box-shadow: 0 2px 5px rgba(46,26,14,.18);
-      cursor: pointer;
-    }
-    input[type=range].fmp-range::-moz-range-thumb{
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--pond);
-      border: 2px solid white;
-      box-shadow: 0 2px 5px rgba(46,26,14,.18);
-      cursor: pointer;
+      border-top-color: #6a1b9a;
+      animation: spin 0.8s ease-in-out infinite;
     }
 
-    /* Close button */
-    .fmp-close{
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      border: 1px solid rgba(46,26,14,.10);
-      background: rgba(255,255,255,.40);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px;
-      cursor: pointer;
-      color: var(--muted);
-      flex-shrink: 0;
-      transition: background .18s;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
-    .fmp-close:hover{ background: rgba(232,168,181,.30); }
 
-    /* Show-player floating button (when player is hidden) */
-    #fmp-restore{
-      position: fixed;
-      bottom: 18px; right: 18px;
-      z-index: 101;
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.55);
-      background: rgba(253,246,237,.80);
-      backdrop-filter: blur(16px);
-      display: flex; align-items: center; justify-content: center;
+    .intro-section {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .intro-section p {
       font-size: 20px;
-      cursor: pointer;
-      box-shadow: 0 10px 28px rgba(46,26,14,.16);
-      transition: transform .2s ease, opacity .25s ease;
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(.8);
-    }
-    #fmp-restore.visible{
-      opacity: 1;
-      pointer-events: auto;
-      transform: scale(1);
-    }
-    #fmp-restore:hover{ transform: scale(1.10); }
-
-    /* ── Responsive ── */
-    @media (max-width: 920px){
-      .layout{ grid-template-columns: 1fr; }
-      .featured-grid{ grid-template-columns: 1fr; }
-      .gallery{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    @media (max-width: 640px){
-      #fmp{ min-width: 0; padding: 0 12px; gap: 10px; }
-      .fmp-vol{ display: none; }
-      .fmp-progress{ left: 60px; right: 120px; }
-    }
-    @media (max-width: 560px){
-      .wrap{ width: calc(100% - 28px); }
-      .hero-actions{ gap: 8px; }
-      .gallery{ grid-template-columns: 1fr; }
+      color: #333;
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 25px;
     }
 
-    html{ scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior: auto; }
-      .leaf, .dot{ animation: none; }
-      .btn, .tile, .card, #fmp{ transition: none; }
-      .card:hover .thumb img, .tile:hover img{ transform: none; }
-      .feature-panel.active{ animation: none; }
-      #fmp.is-playing .fmp-art{ animation: none; }
+    .highlight-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      loading: lazy;
+    }
+
+    .cta-button {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 28px;
+      background: linear-gradient(145deg, #6a1b9a, #0b0b0b);
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+    }
+
+    .cta-button:hover {
+      background: linear-gradient(145deg, #1d1c1c, #6a1b9a);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+    }
+
+    .visitor-counter {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .visitor-counter a {
+      color: #ea38d8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .visitor-counter a:hover {
+      color: #6a1b9a;
+      text-decoration: underline;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      body {
+        background-image: 
+          linear-gradient(135deg, rgba(106, 27, 154, 0.8), rgba(251, 192, 45, 0.8)),
+          url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80');
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .header-table td {
+        display: block;
+        text-align: center;
+        padding: 15px;
+      }
+
+      .avatar-cell {
+        margin: 0 auto;
+      }
+
+      .welcome-message {
+        padding-left: 0;
+        border-left: none;
+        border-top: 3px dashed #fbc02d;
+        padding-top: 25px;
+        text-align: center;
+      }
+
+      .welcome-message h2 {
+        text-align: center;
+        font-size: 36px;
+      }
+
+      .player-controls {
+        flex-wrap: wrap;
+      }
+
+      .hobbies-list, .highlights-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .digital-clock {
+        font-size: 24px;
+      }
+
+      .tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .tab-button {
+        width: 90%;
+        margin-bottom: 12px;
+      }
     }
   </style>
 </head>
-
 <body>
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="wrap">
-      <div class="topbar-inner">
-        <a class="brand" href="#top" aria-label="Go to top">
-          <img class="logo" src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/myself%202013.jpg" alt="Judy Nguyen logo photo">
-          <div class="brand-title">
-            <strong>Judy Nguyen</strong>
-            <span>music • games • art • photos • writing</span>
+  <div class="container">
+    <table class="header-table">
+      <tr>
+        <td class="avatar-cell">
+          <img class="avatar" src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/2013-12-18%2015.33.03-1.jpg" alt="Judy's Avatar">
+        </td>
+        <td class="welcome-message">
+          <h2>Welcome to my World!</h2>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Digital Clock -->
+    <div class="digital-clock" id="digitalClock" aria-live="polite">Loading time...</div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-button active" data-tab="home" tabindex="0">Home</button>
+      <button class="tab-button" data-tab="music" tabindex="0">Music</button>
+      <button class="tab-button" data-tab="gaming" tabindex="0">Gaming</button>
+      <button class="tab-button" data-tab="drawing" tabindex="0">Drawing</button>
+      <button class="tab-button" data-tab="photography" tabindex="0">Photography</button>
+      <button class="tab-button" data-tab="writing" tabindex="0">Writing</button>
+    </div>
+
+    <!-- Home Tab -->
+    <div id="home" class="tab-content active">
+      <div class="section">
+        <div class="intro-section">
+          <p>This is my personal website where I show you my world. I'm Judy, a creative soul passionate about music, art, gaming, and capturing life's moments through photography and writing. Explore my tabs to dive into my interests!</p>
+        </div>
+        <h2>Highlights</h2>
+        <div class="highlights-grid">
+          <div class="highlight-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/Screenshot%202025-09-07%20152306.png" alt="Favorite Song">
+            <h3>Favorite Song</h3>
+            <p>Listen to "Huong vi tieu tan" by Cao Huc, one of my top picks!</p>
           </div>
-        </a>
+          <div class="highlight-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/scan0027.jpg" alt="Favorite Drawing">
+            <h3>Favorite Drawing</h3>
+            <p>Check out my abstract art piece in the Drawing tab.</p>
+          </div>
+          <div class="highlight-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250823_055050.jpg" alt="Favorite Photo">
+            <h3>Favorite Photo</h3>
+            <p>Explore my nature photography in the Photography tab.</p>
+          </div>
+        </div>
+        <p class="visitor-counter">
+          Visitors: 
+          <span id="visitorCounter">
+            <a href='http://www.freevisitorcounters.com'>on freevisitorcounters.com</a>
+            <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=2bc8336ef611e2fb50109f9de600bbe23848479d'></script>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1386892/t/2"></script>
+          </span>
+        </p>
+        <a href="#music" class="cta-button" onclick="document.querySelector('[data-tab=music]').click()">Explore More!</a>
       </div>
     </div>
-  </header>
 
-  <main id="top" class="wrap">
-    <div class="layout">
-      <!-- LEFT COLUMN -->
-      <div class="stack" aria-label="Main column">
-
-        <!-- Hero -->
-        <section class="panel hero" aria-label="Intro">
-          <div class="kicker"><span class="dot" aria-hidden="true"></span> A quiet corner of my creative world</div>
-          <h1>Hi, I'm Judy — welcome.</h1>
-          <p class="subtitle">
-            Welcome to my world — a small space where I share little moments.
-            I'm finding my way through the light.
-          </p>
-          <div class="hero-actions">
-            <a class="btn primary" href="#featured">Open featured</a>
-            <a class="btn" href="#contact">Say hello</a>
+    <!-- Music Tab -->
+    <div id="music" class="tab-content">
+      <div class="section yt-player">
+        <div id="yt-player" class="yt-video">
+          <div class="yt-loading">
+            <div class="spinner"></div>
           </div>
-          <svg class="leaf" viewBox="0 0 200 200" aria-hidden="true">
-            <path fill="rgba(90,128,96,.78)" d="M165 32c-33 8-62 28-82 55-21 29-29 62-25 95 27-6 52-20 72-41 30-32 45-72 35-109z"/>
-            <path fill="rgba(242,176,122,.78)" d="M50 170c22-4 42-15 56-31 20-22 29-49 23-76-22 6-41 19-55 36-18 23-25 47-24 71z"/>
-          </svg>
-        </section>
-
-        <!-- Featured -->
-        <section id="featured" class="panel" aria-label="Featured">
-          <div class="content">
-            <div class="section-head" style="margin-bottom:12px;">
-              <h2>Featured</h2>
-              <div class="hint">Click a card to open its container below.</div>
-            </div>
-
-            <div class="featured-grid" role="tablist" aria-label="Featured sections">
-              <button class="feature-tab" role="tab" id="ft-music" aria-controls="fp-music" aria-selected="true" data-feature="music" type="button">
-                <div class="card">
-                  <div class="thumb">
-                    <img src="https://github.com/Whyrusoserious/Picture/raw/72e58856f2915bd26f5559d90b77440710445b19/Screenshot%202026-02-01%20211345.png" alt="Music" loading="lazy">
-                  </div>
-                  <div class="content">
-                    <h3>Music</h3>
-                    <p>Playlist, songs, and links.</p>
-                    <div class="meta"><span>Playlist</span><span>Updates</span></div>
-                  </div>
-                </div>
-              </button>
-
-              <button class="feature-tab" role="tab" id="ft-games" aria-controls="fp-games" aria-selected="false" data-feature="games" type="button">
-                <div class="card">
-                  <div class="thumb">
-                    <img src="https://github.com/Whyrusoserious/Picture/raw/6b74b0520d1f7b9e6f794939ad5cecc61c9920ee/where-winds-meet-pc-steam-cover.jpg" alt="Games" loading="lazy">
-                  </div>
-                  <div class="content">
-                    <h3>Games</h3>
-                    <p>Game list, screenshots, notes.</p>
-                    <div class="meta"><span>Favorites</span><span>Cozy</span></div>
-                  </div>
-                </div>
-              </button>
-
-              <button class="feature-tab" role="tab" id="ft-art" aria-controls="fp-art" aria-selected="false" data-feature="art" type="button">
-                <div class="card">
-                  <div class="thumb">
-                    <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=1400&q=80" alt="Art" loading="lazy">
-                  </div>
-                  <div class="content">
-                    <h3>Art</h3>
-                    <p>Drawings, sketches, commissions.</p>
-                    <div class="meta"><span>Gallery</span><span>New</span></div>
-                  </div>
-                </div>
-              </button>
-
-              <button class="feature-tab" role="tab" id="ft-photos" aria-controls="fp-photos" aria-selected="false" data-feature="photos" type="button">
-                <div class="card">
-                  <div class="thumb">
-                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80" alt="Photography" loading="lazy">
-                  </div>
-                  <div class="content">
-                    <h3>Photography</h3>
-                    <p>Photo grid + captions.</p>
-                    <div class="meta"><span>Moments</span><span>Nature</span></div>
-                  </div>
-                </div>
-              </button>
-            </div>
-
-            <!-- PANELS -->
-            <div class="feature-panels" aria-label="Featured content panels">
-
-              <!-- MUSIC PANEL -->
-              <div class="feature-panel active" role="tabpanel" id="fp-music" aria-labelledby="ft-music" tabindex="0">
-                <div class="panel-grid">
-
-                  <!-- YouTube player -->
-                  <div class="box" style="padding:0;overflow:hidden;">
-                    <div id="yt-player-wrap" style="position:relative;background:#000;border-radius:var(--radius);overflow:hidden;">
-                      <div id="yt-player" style="width:100%;aspect-ratio:16/9;"></div>
-                      <div id="yt-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(46,26,14,.08);border-radius:var(--radius);">
-                        <div style="width:44px;height:44px;border:4px solid rgba(104,178,178,.25);border-top-color:var(--pond);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
-                      </div>
-                    </div>
-                    <!-- Player controls -->
-                    <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;">
-                      <button class="fmp-btn" onclick="prevVideo()" aria-label="Previous">⏮</button>
-                      <button class="fmp-btn play-btn" id="yt-play-btn" onclick="toggleYT()" aria-label="Play / Pause">▶</button>
-                      <button class="fmp-btn" onclick="stopVideo()" aria-label="Stop">⏹</button>
-                      <button class="fmp-btn" onclick="nextVideo()" aria-label="Next">⏭</button>
-                      <div style="flex:1;max-width:120px;display:flex;align-items:center;gap:6px;margin-left:6px;">
-                        <span style="font-size:12px;color:var(--muted);">🔈</span>
-                        <input type="range" class="fmp-range" id="yt-vol" min="0" max="100" value="80" aria-label="Volume"
-                          oninput="if(ytPlayer)ytPlayer.setVolume(this.value)" style="width:100%;">
-                      </div>
-                    </div>
-                    <!-- Now playing strip -->
-                    <div id="yt-now-playing" style="padding:0 14px 12px;font-size:12px;color:var(--muted);text-align:center;min-height:18px;"></div>
-                  </div>
-
-                  <!-- Song list -->
-                  <div class="box">
-                    <h4>My Playlist <span style="font-family:var(--font-ui);font-size:12px;font-weight:400;color:var(--muted);">— click a row to play, or ↗ to open on YouTube</span></h4>
-                    <div id="song-list" style="max-height:340px;overflow-y:auto;margin-top:10px;"></div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- GAMES PANEL -->
-              <div class="feature-panel" role="tabpanel" id="fp-games" aria-labelledby="ft-games" tabindex="0">
-                <div class="panel-grid">
-                  <div class="box">
-                    <h4>My Gaming Journey</h4>
-                    <p>I enjoy playing various types of games. Here are some of my favorites!</p>
-                  </div>
-                  <div class="gallery" aria-label="Game screenshots">
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://github.com/Whyrusoserious/Picture/blob/main/6974e0d52f63673e7f61085132e49cf3.jpg?raw=true" alt="Onmyoji" loading="lazy"></div>
-                      <div class="tile-cap"><strong>Onmyoji</strong> — 3D RPG by NetEase. Follow Seimei recovering lost memories.</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://github.com/Whyrusoserious/Picture/blob/main/c29af78d0a359c0ba24a18a579d09a78.jpg?raw=true" alt="Animal Crossing" loading="lazy"></div>
-                      <div class="tile-cap"><strong>Animal Crossing</strong> — New Horizons on Nintendo Switch. So cozy 🌿</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://github.com/Whyrusoserious/Picture/blob/main/pu.jpg?raw=true" alt="Pokemon Unite" loading="lazy"></div>
-                      <div class="tile-cap"><strong>Pokémon UNITE</strong> — MOBA reimagining Pokémon battles.</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://github.com/Whyrusoserious/Picture/blob/main/yokai_watch.jpg?raw=true" alt="Yokai Watch" loading="lazy"></div>
-                      <div class="tile-cap"><strong>Yo-kai Watch</strong> — RPG series by Level-5. Super fun!</div>
-                    </div>
-                  </div>
-                  <div class="box"><p style="margin:0;font-size:13px;color:var(--muted);">I also love all kinds of Pokémon games, SOS Oliver Town, and more…</p></div>
-                </div>
-              </div>
-
-              <!-- ART PANEL -->
-              <div class="feature-panel" role="tabpanel" id="fp-art" aria-labelledby="ft-art" tabindex="0">
-                <div class="panel-grid">
-                  <div class="box">
-                    <h4>My Art Gallery</h4>
-                    <p>I love expressing my creativity through art. More coming soon!</p>
-                  </div>
-                  <div class="gallery" aria-label="Art gallery">
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/scan0003.jpg" alt="Sailor Moon sketch" loading="lazy"></div>
-                      <div class="tile-cap">Sailor Moon • pencil</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/scan0027.jpg" alt="Usagi sketch" loading="lazy"></div>
-                      <div class="tile-cap">Usagi • sketchbook</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- PHOTOS PANEL -->
-              <div class="feature-panel" role="tabpanel" id="fp-photos" aria-labelledby="ft-photos" tabindex="0">
-                <div class="panel-grid">
-                  <div class="box">
-                    <h4>My Photography</h4>
-                    <p>Capturing moments and scenes that inspire me. Always looking for new perspectives!</p>
-                  </div>
-                  <div class="gallery" aria-label="Photography">
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250816_134706.jpg" alt="From the flight" loading="lazy"></div>
-                      <div class="tile-cap">From my window</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250820_055242.jpg" alt="Sunrise" loading="lazy"></div>
-                      <div class="tile-cap">My favorite moment</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250820_062300.jpg" alt="Sea" loading="lazy"></div>
-                      <div class="tile-cap">My hometown</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250822_182521.jpg" alt="Night beach" loading="lazy"></div>
-                      <div class="tile-cap">Night at the beach</div>
-                    </div>
-                    <div class="tile">
-                      <div class="tile-img"><img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250830_153150.jpg" alt="Inner peace" loading="lazy"></div>
-                      <div class="tile-cap">Inner peace</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
+        </div>
+        <div class="player-controls">
+          <button onclick="prevVideo()" aria-label="Previous video">⏮ Prev</button>
+          <button onclick="playVideo()" aria-label="Play video">▶ Play</button>
+          <button onclick="pauseVideo()" aria-label="Pause video">⏸ Pause</button>
+          <button onclick="stopVideo()" aria-label="Stop video">⏹ Stop</button>
+          <button onclick="nextVideo()" aria-label="Next video">⏭ Next</button>
+        </div>
+        <h2>My Favorite Playlist</h2>
+        <div class="playlist-menu" id="playlist-menu"></div>
       </div>
+    </div>
 
-      <!-- RIGHT COLUMN -->
-      <aside class="stack" aria-label="Sidebar">
-        <section class="mini-card" aria-label="Mood today">
-          <h3>My mood today</h3>
-          <p>A little snapshot from my day.</p>
-          <div class="mini-thumb">
-            <img src="https://github.com/Whyrusoserious/Picture/raw/ed48d38fd83157e3dfa80f6fdc886224325ca3df/cemetery.jpg" loading="lazy" alt="Wander moment">
+    <!-- Gaming Tab -->
+    <div id="gaming" class="tab-content">
+      <div class="section">
+        <h2>My Gaming Journey</h2>
+        <p>I enjoy playing various types of games. Here are some of my favorites:</p>
+        <div class="gallery">
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas fa-users"></i> Onmyoji</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/6974e0d52f63673e7f61085132e49cf3.jpg?raw=true" alt="Onmyoji">
+            <p class="gallery-caption">Onmyoji is a 3D RPG developed by NetEase Games. Follow the legendary onmyoji Seimei in his journey to recover his lost memories while encountering demons of all shapes and forms.</p>
           </div>
-        </section>
-
-        <section id="contact" class="mini-card" aria-label="Contact">
-          <h3>Contact</h3>
-          <p>
-            
-            Instagram: <a href="https://www.instagram.com/judynguyen317/" target="_blank" rel="noopener noreferrer">judynguyen317</a><br/>
-            GitHub: <a href="https://github.com/Whyrusoserious" target="_blank" rel="noopener noreferrer">Whyrusoserious</a>
-          </p>
-        </section>
-
-        <section class="mini-card" aria-label="Quick links">
-          <h3>Quick links</h3>
-          <p>Open a section:</p>
-          <div class="links">
-            <a href="#featured" data-open-feature="music">🎧 Music</a>
-            <a href="#featured" data-open-feature="games">🎮 Games</a>
-            <a href="#featured" data-open-feature="art">🎨 Art</a>
-            <a href="#featured" data-open-feature="photos">📷 Photography</a>
-            <a href="#top">↑ Back to top</a>
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas fa-users"></i> Animal Crossing</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/c29af78d0a359c0ba24a18a579d09a78.jpg?raw=true" alt="Animal Crossing">
+            <p class="gallery-caption">Animal Crossing: New Horizons is a social simulation game for the Nintendo Switch, released worldwide on March 20, 2020.</p>
           </div>
-        </section>
-      </aside>
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas fa-users"></i> Pokemon Unite</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/pu.jpg?raw=true" alt="Pokemon Unite">
+            <p class="gallery-caption">Pokemon UNITE is a MOBA which is changing the nature of Pokemon Battles.</p>
+          </div>
+          <div class="gallery-item">
+            <h3 class="hobby-title"><i class="fas fa-dice"></i> Yokai Watch</h3>
+            <img src="https://github.com/Whyrusoserious/Picture/blob/main/yokai_watch.jpg?raw=true" alt="Yokai Watch">
+            <p class="gallery-caption">Yo-kai Watch is a role-playing video game series created by Level-5.</p>
+          </div>
+        </div>
+        <p>I also like all kind of Pokemon games, SOS Oliver town, etc...</p>
+      </div>
+    </div>
+
+    <!-- Drawing Tab -->
+    <div id="drawing" class="tab-content">
+      <div class="section">
+        <h2>My Art Gallery</h2>
+        <p>Here are some of my drawings. I enjoy expressing my creativity through art.</p>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/scan0003.jpg" alt="My sketch 1">
+            <div class="gallery-caption">Sailor Moon</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/scan0027.jpg" alt="My sketch">
+            <div class="gallery-caption">Usagi</div>
+          </div>
+        </div>
+        <p>More artwork coming soon as I continue to develop my skills!</p>
+      </div>
+    </div>
+
+    <!-- Photography Tab -->
+    <div id="photography" class="tab-content">
+      <div class="section">
+        <h2>My Photography</h2>
+        <p>I love capturing moments and scenes that inspire me. Here are some of my favorite shots:</p>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250816_134706.jpg" alt="From the flight">
+            <div class="gallery-caption">From my window</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250820_055242.jpg" alt="Sunrise">
+            <div class="gallery-caption">My favorite moment</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250820_062300.jpg" alt="Sea">
+            <div class="gallery-caption">My hometown</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250822_182521.jpg" alt="Night beach">
+            <div class="gallery-caption">Night at the beach</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/20250830_153150.jpg" alt="Inner peace">
+            <div class="gallery-caption">Inner peace</div>
+          </div>
+        </div>
+        <p>I'm always looking for new perspectives and interesting subjects to photograph!</p>
+      </div>
+    </div>
+
+    <!-- Writing Tab -->
+    <div id="writing" class="tab-content">
+      <div class="section">
+        <h2>✍ Writing</h2>
+        <div class="hobby-item">
+          <p class="hobby-description">I'm also a writer. I used to be a contributor to a magazine in Vietnam. I hope my novel can reach everyone soon.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="social-links">
+      <a href="https://github.com/Whyrusoserious" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://discordapp.com/users/asura3107" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord"></i></a>
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
     </div>
 
     <footer>
-      <div class="wrap footer-inner">
-        <div class="small">
-          <strong style="font-family:var(--font-title);color:var(--ink);">Judy Nguyen</strong><br/>
-          A soft portfolio inspired by sunlit paper, fresh greens, and quiet stories.
-        </div>
-        <div class="small">
-          © <span id="year"></span> Judy Nguyen<br/>
-          <span>Tip: keep images optimized (1200px wide is usually enough).</span>
-        </div>
-      </div>
+      <span lang="en">Website created </span> <span style="color: #fbc02d;">❤️ </span> <span lang="en"> by </span>
+      <a href="https://github.com/Whyrusoserious" target="_blank" rel="noopener noreferrer" aria-label="Visit Judy's GitHub profile">JudyNguyen</a> |
+      © <span id="currentYear"></span> <span lang="vi"> All Rights Reserved </span>
     </footer>
-  </main>
-
-  <!-- ══ FLOATING MUSIC PLAYER ══ -->
-  <div id="fmp" class="hidden" role="region" aria-label="Floating music player">
-    <img class="fmp-art" id="fmp-art"
-         src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=80&q=80"
-         alt="Album art">
-    <div class="fmp-info">
-      <div class="fmp-title" id="fmp-title">No track loaded</div>
-      <div class="fmp-artist" id="fmp-artist">Click ▶ on a track</div>
-    </div>
-    <div class="fmp-controls">
-      <button class="fmp-btn" id="fmp-prev" aria-label="Previous track" title="Previous">⏮</button>
-      <button class="fmp-btn play-btn" id="fmp-play" aria-label="Play / pause" title="Play / Pause">▶</button>
-      <button class="fmp-btn" id="fmp-next" aria-label="Next track" title="Next">⏭</button>
-    </div>
-    <div class="fmp-vol">
-      <span class="fmp-vol-icon">🔈</span>
-      <input type="range" class="fmp-range" id="fmp-vol" min="0" max="1" step="0.02" value="0.8" aria-label="Volume">
-    </div>
-    <button class="fmp-close" id="fmp-close" aria-label="Close player" title="Close">✕</button>
-    <div class="fmp-progress" aria-hidden="true"><div class="fmp-progress-fill" id="fmp-prog"></div></div>
   </div>
 
-  <!-- Restore button -->
-  <button id="fmp-restore" aria-label="Show music player" title="Show music player">🎵</button>
+  <script>
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
 
-  <audio id="fmp-audio" preload="none"></audio>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // ── Footer year ──
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // ── Feature tabs ──
-    const featureTabs   = Array.from(document.querySelectorAll(".feature-tab"));
-    const featurePanels = Array.from(document.querySelectorAll(".feature-panel"));
-
-    function setActiveFeature(name, scrollIntoView = false){
-      featureTabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.feature === name)));
-      featurePanels.forEach(p => p.classList.toggle("active", p.id === `fp-${name}`));
-      if (scrollIntoView) document.getElementById("featured")?.scrollIntoView({ behavior:"smooth", block:"start" });
-      history.replaceState(null, "", `#${name}`);
+    function openTab(tabName) {
+      tabs.forEach(tab => tab.classList.remove('active'));
+      contents.forEach(content => content.classList.remove('active'));
+      document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+      document.getElementById(tabName).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    featureTabs.forEach(tab => {
-      tab.addEventListener("click", () => setActiveFeature(tab.dataset.feature));
-      tab.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); setActiveFeature(tab.dataset.feature); } });
-    });
-
-    document.querySelectorAll("[data-open-feature]").forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        const name = link.getAttribute("data-open-feature");
-        if (name) setActiveFeature(name, true);
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => openTab(tab.dataset.tab));
+      tab.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openTab(tab.dataset.tab);
+        }
       });
     });
 
-    function initFromHash(){
-      const hash = (location.hash || "").replace("#","").trim();
-      const valid = featureTabs.some(t => t.dataset.feature === hash);
-      setActiveFeature(valid ? hash : "music", false);
+    // Digital Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('digitalClock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
-    window.addEventListener("hashchange", initFromHash);
-    initFromHash();
+    setInterval(updateClock, 1000);
+    updateClock();
 
-    // ══ FLOATING MUSIC PLAYER ══
-    // ══ YOUTUBE IFRAME PLAYER + FULL PLAYLIST ══
+    // Current Year for Footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // YouTube Player
+    let player;
+    let currentSongIndex = 0;
     const playlist = [
-      { title: "Thank U",                  artist: "Uknow",                       videoId: "ZL8jYBVef7U" },
-      { title: "Nao co de tam toi",        artist: "Cao Huc",                     videoId: "WHukKkFSKbo" },
-      { title: "Nguoi noi doi truoc",      artist: "h3R3",                        videoId: "BvtQdYViEsQ" },
-      { title: "Melatonin",                artist: "Giang Hao Nam",               videoId: "n9La_XLxAR0" },
-      { title: "Insomnia",                 artist: "Wheesung",                    videoId: "1iTT2csCtYY" },
-      { title: "Weekend",                  artist: "JangWooHyuk",                 videoId: "9vm5YuiueWo" },
-      { title: "Gui quan mot khuc",        artist: "Chap To He",                  videoId: "zWTeLOLYITo" },
-      { title: "Love and Deepspace",       artist: "Sarah Brightman",             videoId: "urONohYpdVA" },
-      { title: "Khong the quen duoc em",   artist: "h3R3",                        videoId: "lNCBLSmenYc" },
-      { title: "Broken Hero",              artist: "Elena Westermann ft 2WEI",    videoId: "NwEt3cqoYhA" },
-      { title: "Trung phung",              artist: "Ung Gia Loi - Tru Tien OST",  videoId: "ukywLX-KL7I" },
-      { title: "Huong vi tieu tan",        artist: "Cao Huc",                     videoId: "xbvKUsi9Pa4" },
-      { title: "Yen Vo Hiet",              artist: "Tuong Tuyet Nhi",             videoId: "lNCViM7R8N8" },
-      { title: "Luong Nan",                artist: "Gia Moc",                     videoId: "gDZzfo19E1M" },
-      { title: "We Lonely",                artist: "Cao Huc",                     videoId: "eIqvxBgvKXI" },
-      { title: "Nua trai tim",             artist: "Grasshopper",                 videoId: "ybMERexVI_g" },
-      { title: "That tinh",                artist: "Grasshopper",                 videoId: "nXJSTkUXxLI" },
-      { title: "Coffee",                   artist: "Giang Hao Nam",               videoId: "_s6LroMz7gA" },
-      { title: "Ngo Khong",                artist: "Truong Ky - Bach Cu Cuong",   videoId: "rCbdoo2wqrw" },
-      { title: "Express Mode",             artist: "SJ",                          videoId: "pykdDgWX7-M" },
-      { title: "Whataya want from me",     artist: "Adam Lambert",                videoId: "X1Fqn9du7xo" },
-      { title: "Tho tu cau phanh ca",      artist: "Gia Moc",                     videoId: "Y6bAnWGEmR4" },
-      { title: "Bring me to life",         artist: "Evanescence",                 videoId: "3YxaaGgTQYM" },
-      { title: "A letter - Tri",           artist: "ONer",                        videoId: "gawWETs7dV0" },
-      { title: "Numb",                     artist: "Linkin Park",                 videoId: "kXYiU_JCYtU" },
-      { title: "It's my life",             artist: "Bon Jovi",                    videoId: "vx2u5uUu3DE" },
-      { title: "On the floor",             artist: "J-Lo & Pitbull",              videoId: "t4H_Zoh7G5A" },
-      { title: "Dien vao khoang khong",    artist: "Gia Moc",                     videoId: "5EFDy3VmZIM" },
-      { title: "Dong tuoc dai",            artist: "Gia Moc",                     videoId: "N1BE2H8P-TU" },
-      { title: "Muon gap lai 1 lan",       artist: "Cao Huc",                     videoId: "wTsFgDRFy0w" },
+      { title: "Thank U", artist: "Uknow", videoId: "ZL8jYBVef7U" },
+      { title: "Nao co de tam toi", artist: "Cao Huc", videoId: "WHukKkFSKbo" },
+      { title: "Nguoi noi doi truoc", artist: "h3R3", videoId: "BvtQdYViEsQ" },
+      { title: "Melatonin", artist: "Giang Hao Nam", videoId: "n9La_XLxAR0" },
+      { title: "Insomnia", artist: "Wheesung", videoId: "1iTT2csCtYY" },
+      { title: "Weekend", artist: "JangWooHyuk", videoId: "9vm5YuiueWo" },
+      { title: "Gui quan mot khuc", artist: "Chap To He", videoId: "zWTeLOLYITo"},
+      { title: "Love and Deepspace", artist: "Sarah Brightman", videoId: "urONohYpdVA" },
+      { title: "Khong the quen duoc em", artist: "h3R3", videoId: "lNCBLSmenYc" },
+      { title: "Broken Hero", artist: "Elena Westermann ft 2WEI", videoId: "NwEt3cqoYhA" },
+      { title: "Trung phung", artist: "Ung Gia Loi - Tru Tien OST", videoId: "ukywLX-KL7I" },
+      { title: "Huong vi tieu tan", artist: "Cao Huc", videoId: "xbvKUsi9Pa4" },
+      { title: "Yen Vo Hiet", artist: "Tuong Tuyet Nhi", videoId: "lNCViM7R8N8" },
+      { title: "Luong Nan", artist: "Gia Moc", videoId: "gDZzfo19E1M" },
+      { title: "We Lonely", artist: "Cao Huc", videoId: "eIqvxBgvKXI" },
+      { title: "Nua trai tim", artist: "Grasshopper", videoId: "ybMERexVI_g" },
+      { title: "That tinh", artist: "Grasshopper", videoId: "nXJSTkUXxLI" },
+      { title: "Coffee", artist: "Giang Hao Nam", videoId: "_s6LroMz7gA" },
+      { title: "Ngo Khong", artist: "Truong Ky - Bach Cu Cuong", videoId: "rCbdoo2wqrw" },
+      { title: "Express Mode", artist: "SJ", videoId: "pykdDgWX7-M" },
+      { title: "Whataya want from me", artist: "Adam Lambert", videoId: "X1Fqn9du7xo" },
+      { title: "Tho tu cau phanh ca", artist: "Gia Moc", videoId: "Y6bAnWGEmR4" },
+      { title: "Bring me to life", artist: "Evanescence", videoId: "3YxaaGgTQYM" },
+      { title: "A letter - Tri", artist: "ONer", videoId: "gawWETs7dV0" },
+      { title: "Numb", artist: "Linkin Park", videoId: "kXYiU_JCYtU" },
+      { title: "It's my life", artist: "Bon Jovi", videoId: "vx2u5uUu3DE" },
+      { title: "On the floor", artist: "J-Lo & Pitbull", videoId: "t4H_Zoh7G5A" },
+      { title: "Dien vao khoang khong", artist: "Gia Moc", videoId: "5EFDy3VmZIM" },
+      { title: "Dong tuoc dai", artist: "Gia Moc", videoId: "N1BE2H8P-TU" },
+      { title: "Muon gap lai 1 lan", artist: "Cao Huc", videoId: "wTsFgDRFy0w" },
     ];
 
     function renderPlaylist() {
