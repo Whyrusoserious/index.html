@@ -1,0 +1,160 @@
+<script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Tabs
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // =============================
+  // YOUTUBE MUSIC PLAYER
+  // =============================
+
+  let player;
+  let currentSongIndex = 0;
+
+  const playlist = [
+      { title: "Thank U", artist: "Uknow", videoId: "ZL8jYBVef7U" },
+      { title: "Nao co de tam toi", artist: "Cao Huc", videoId: "WHukKkFSKbo" },
+      { title: "Nguoi noi doi truoc", artist: "h3R3", videoId: "BvtQdYViEsQ" },
+      { title: "Melatonin", artist: "Giang Hao Nam", videoId: "n9La_XLxAR0" },
+      { title: "Insomnia", artist: "Wheesung", videoId: "1iTT2csCtYY" },
+      { title: "Weekend", artist: "JangWooHyuk", videoId: "9vm5YuiueWo" },
+      { title: "Gui quan mot khuc", artist: "Chap To He", videoId: "zWTeLOLYITo"},
+      { title: "Love and Deepspace", artist: "Sarah Brightman", videoId: "urONohYpdVA" },
+      { title: "Khong the quen duoc em", artist: "h3R3", videoId: "lNCBLSmenYc" },
+      { title: "Broken Hero", artist: "Elena Westermann ft 2WEI", videoId: "NwEt3cqoYhA" },
+      { title: "Trung phung", artist: "Ung Gia Loi - Tru Tien OST", videoId: "ukywLX-KL7I" },
+      { title: "Huong vi tieu tan", artist: "Cao Huc", videoId: "xbvKUsi9Pa4" },
+      { title: "Yen Vo Hiet", artist: "Tuong Tuyet Nhi", videoId: "lNCViM7R8N8" },
+      { title: "Luong Nan", artist: "Gia Moc", videoId: "gDZzfo19E1M" },
+      { title: "We Lonely", artist: "Cao Huc", videoId: "eIqvxBgvKXI" },
+      { title: "Nua trai tim", artist: "Grasshopper", videoId: "ybMERexVI_g" },
+      { title: "That tinh", artist: "Grasshopper", videoId: "nXJSTkUXxLI" },
+      { title: "Coffee", artist: "Giang Hao Nam", videoId: "_s6LroMz7gA" },
+      { title: "Ngo Khong", artist: "Truong Ky - Bach Cu Cuong", videoId: "rCbdoo2wqrw" },
+      { title: "Express Mode", artist: "SJ", videoId: "pykdDgWX7-M" },
+      { title: "Whataya want from me", artist: "Adam Lambert", videoId: "X1Fqn9du7xo" },
+      { title: "Tho tu cau phanh ca", artist: "Gia Moc", videoId: "Y6bAnWGEmR4" },
+      { title: "Bring me to life", artist: "Evanescence", videoId: "3YxaaGgTQYM" },
+      { title: "A letter - Tri", artist: "ONer", videoId: "gawWETs7dV0" },
+      { title: "Numb", artist: "Linkin Park", videoId: "kXYiU_JCYtU" },
+      { title: "It's my life", artist: "Bon Jovi", videoId: "vx2u5uUu3DE" },
+      { title: "On the floor", artist: "J-Lo & Pitbull", videoId: "t4H_Zoh7G5A" },
+      { title: "Dien vao khoang khong", artist: "Gia Moc", videoId: "5EFDy3VmZIM" },
+      { title: "Dong tuoc dai", artist: "Gia Moc", videoId: "N1BE2H8P-TU" },
+      { title: "Muon gap lai 1 lan", artist: "Cao Huc", videoId: "wTsFgDRFy0w" },
+  ];
+
+  // Update Now Playing
+  function updateNowPlaying() {
+    const song = playlist[currentSongIndex];
+    document.getElementById('np-title').textContent = song.title;
+    document.getElementById('np-artist').textContent = song.artist;
+  }
+
+  // Render playlist
+  function renderPlaylist() {
+
+    const playlistMenu = document.getElementById('playlist-list'); // FIXED ID
+    playlistMenu.innerHTML = '';
+
+    playlist.forEach((song, index) => {
+
+      const songItem = document.createElement('div');
+
+      songItem.className = `song-item ${index === currentSongIndex ? 'active' : ''}`;
+
+      songItem.innerHTML = `
+        <div class="song-num">${index + 1}</div>
+        <div class="song-info">
+          <div class="song-title">${song.title}</div>
+          <div class="song-artist">${song.artist}</div>
+        </div>
+      `;
+
+      songItem.addEventListener('click', () => {
+        currentSongIndex = index;
+        player.loadVideoById(song.videoId);
+        updateNowPlaying();
+        renderPlaylist();
+      });
+
+      playlistMenu.appendChild(songItem);
+    });
+
+    document.getElementById("playlist-count").textContent = playlist.length;
+  }
+
+  // YouTube Player
+  function onYouTubeIframeAPIReady() {
+
+    player = new YT.Player('yt-player', {
+
+      videoId: playlist[currentSongIndex].videoId,
+
+      playerVars: {
+        autoplay: 0,
+        controls: 1,
+        rel: 0
+      },
+
+      events: {
+
+        onReady: () => {
+
+          document.getElementById('yt-loading').style.display = 'none';
+          updateNowPlaying();
+          renderPlaylist();
+
+        },
+
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.ENDED) {
+            nextVideo();
+          }
+        }
+      }
+    });
+  }
+
+  function playVideo() { player.playVideo(); }
+  function pauseVideo() { player.pauseVideo(); }
+  function stopVideo() { player.stopVideo(); }
+
+  function nextVideo() {
+    currentSongIndex = (currentSongIndex + 1) % playlist.length;
+    player.loadVideoById(playlist[currentSongIndex].videoId);
+    updateNowPlaying();
+    renderPlaylist();
+  }
+
+  function prevVideo() {
+    currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+    player.loadVideoById(playlist[currentSongIndex].videoId);
+    updateNowPlaying();
+    renderPlaylist();
+  }
+
+  // Load YouTube API
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+
+</script>
