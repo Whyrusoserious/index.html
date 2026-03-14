@@ -974,7 +974,7 @@
     ];
 
     function renderPlaylist() {
-      const playlistMenu = document.getElementById('playlist-menu');
+      const playlistMenu = document.getElementById('playlist-list');
       playlistMenu.innerHTML = '';
       playlist.forEach((song, index) => {
         const songItem = document.createElement('div');
@@ -1012,7 +1012,10 @@
           videoId: playlist[currentSongIndex].videoId,
           playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0 },
           events: {
-            'onReady': () => { renderPlaylist(); },
+            'onReady': () => {
+            document.getElementById('yt-loading').style.display = 'none';
+            renderPlaylist();
+            },
             'onStateChange': (e) => {
               if (e.data === YT.PlayerState.ENDED) nextVideo();
             },
