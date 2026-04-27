@@ -22,7 +22,6 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -33,7 +32,6 @@
       overflow-x: hidden;
     }
 
-    /* ── GRAIN OVERLAY ── */
     body::before {
       content: '';
       position: fixed;
@@ -44,7 +42,6 @@
       opacity: 0.6;
     }
 
-    /* ── SIDE STRIPE ── */
     .side-stripe {
       position: fixed;
       left: 0; top: 0; bottom: 0;
@@ -53,14 +50,12 @@
       z-index: 100;
     }
 
-    /* ── LAYOUT ── */
     .page {
       max-width: 1100px;
       margin: 0 auto;
       padding: 60px 40px 60px 60px;
     }
 
-    /* ── HEADER ── */
     header {
       display: grid;
       grid-template-columns: 200px 1fr;
@@ -86,9 +81,7 @@
       animation: spin-ring 8s linear infinite;
     }
 
-    @keyframes spin-ring {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
 
     .avatar-wrap::after {
       content: '';
@@ -128,10 +121,7 @@
       letter-spacing: -0.02em;
     }
 
-    .header-name em {
-      font-style: italic;
-      color: var(--plum);
-    }
+    .header-name em { font-style: italic; color: var(--plum); }
 
     .header-tagline {
       margin-top: 16px;
@@ -150,7 +140,6 @@
       margin-top: 20px;
     }
 
-    /* ── NAV ── */
     nav {
       display: flex;
       gap: 8px;
@@ -173,18 +162,9 @@
       transition: all 0.3s ease;
     }
 
-    .nav-btn:hover {
-      border-color: var(--gold);
-      color: var(--ink);
-    }
+    .nav-btn:hover { border-color: var(--gold); color: var(--ink); }
+    .nav-btn.active { background: var(--ink); border-color: var(--ink); color: var(--cream); }
 
-    .nav-btn.active {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--cream);
-    }
-
-    /* ── TABS ── */
     .tab { display: none; animation: fadeUp 0.5s ease; }
     .tab.active { display: block; }
 
@@ -193,7 +173,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── SECTION HEADING ── */
     .sec-heading {
       display: flex;
       align-items: baseline;
@@ -209,11 +188,7 @@
       color: var(--ink);
     }
 
-    .sec-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
+    .sec-line { flex: 1; height: 1px; background: var(--border); }
 
     .sec-num {
       font-size: 11px;
@@ -222,7 +197,7 @@
       font-weight: 500;
     }
 
-    /* ── HOME ── */
+    /* HOME */
     .home-intro {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -230,19 +205,10 @@
       margin-bottom: 60px;
     }
 
-    .intro-text p {
-      font-size: 16px;
-      line-height: 1.9;
-      color: #4a4a5e;
-      font-weight: 300;
-    }
-
+    .intro-text p { font-size: 16px; line-height: 1.9; color: #4a4a5e; font-weight: 300; }
     .intro-text p + p { margin-top: 16px; }
 
-    .intro-quote {
-      border-left: 2px solid var(--gold);
-      padding-left: 28px;
-    }
+    .intro-quote { border-left: 2px solid var(--gold); padding-left: 28px; }
 
     .intro-quote blockquote {
       font-family: 'Cormorant Garamond', serif;
@@ -263,11 +229,7 @@
       font-style: normal;
     }
 
-    .highlights-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
+    .highlights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
     .hl-card {
       position: relative;
@@ -278,10 +240,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .hl-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(26,26,46,0.1);
-    }
+    .hl-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(26,26,46,0.1); }
 
     .hl-card-img {
       width: 100%;
@@ -292,41 +251,14 @@
     }
 
     .hl-card:hover .hl-card-img { transform: scale(1.04); }
+    .hl-card-body { padding: 20px; }
 
-    .hl-card-body {
-      padding: 20px;
-    }
+    .hl-card-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 8px; }
+    .hl-card-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 8px; }
+    .hl-card-desc { font-size: 13px; color: var(--mist); line-height: 1.6; }
 
-    .hl-card-tag {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .hl-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-
-    .hl-card-desc {
-      font-size: 13px;
-      color: var(--mist);
-      line-height: 1.6;
-    }
-
-    /* ── MUSIC PLAYER ── */
-    .player-layout {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 40px;
-      align-items: start;
-    }
+    /* MUSIC */
+    .player-layout { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
 
     .yt-frame-wrap {
       border-radius: 4px;
@@ -336,12 +268,7 @@
       position: relative;
     }
 
-    #yt-player {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
+    #yt-player { width: 100%; height: 100%; border: none; display: block; }
 
     .yt-loading {
       position: absolute;
@@ -362,12 +289,7 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .player-controls {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-      align-items: center;
-    }
+    .player-controls { display: flex; gap: 12px; margin-top: 16px; align-items: center; }
 
     .ctrl-btn {
       font-family: 'Outfit', sans-serif;
@@ -396,34 +318,11 @@
       border-radius: 2px;
     }
 
-    .np-label {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
+    .np-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .np-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink); }
+    .np-artist { font-size: 12px; color: var(--mist); margin-top: 4px; }
 
-    .np-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-style: italic;
-      color: var(--ink);
-    }
-
-    .np-artist {
-      font-size: 12px;
-      color: var(--mist);
-      margin-top: 4px;
-    }
-
-    /* Playlist */
-    .playlist-sidebar {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      background: white;
-    }
+    .playlist-sidebar { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: white; }
 
     .playlist-header {
       padding: 18px 20px;
@@ -435,12 +334,7 @@
       font-weight: 500;
     }
 
-    .playlist-list {
-      max-height: 500px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-    }
+    .playlist-list { max-height: 500px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 
     .song-item {
       display: flex;
@@ -453,48 +347,16 @@
     }
 
     .song-item:last-child { border-bottom: none; }
-
     .song-item:hover { background: var(--warm); }
-
-    .song-item.active {
-      background: var(--warm);
-      border-left: 3px solid var(--gold);
-      padding-left: 17px;
-    }
-
-    .song-num {
-      font-size: 11px;
-      color: var(--mist);
-      min-width: 20px;
-      text-align: right;
-      font-weight: 300;
-    }
-
+    .song-item.active { background: var(--warm); border-left: 3px solid var(--gold); padding-left: 17px; }
+    .song-num { font-size: 11px; color: var(--mist); min-width: 20px; text-align: right; font-weight: 300; }
     .song-item.active .song-num { color: var(--gold); font-weight: 600; }
-
     .song-info { flex: 1; min-width: 0; }
+    .song-title { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .song-artist { font-size: 11px; color: var(--mist); margin-top: 2px; }
 
-    .song-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .song-artist {
-      font-size: 11px;
-      color: var(--mist);
-      margin-top: 2px;
-    }
-
-    /* ── GALLERY ── */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
-    }
+    /* GALLERY */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
 
     .gallery-card {
       border: 1px solid var(--border);
@@ -504,72 +366,466 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .gallery-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 32px rgba(26,26,46,0.1);
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s;
-    }
-
+    .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(26,26,46,0.1); }
+    .gallery-card img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.4s; }
     .gallery-card:hover img { transform: scale(1.05); }
+    .gallery-card-body { padding: 16px 20px; }
+    .gallery-card-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+    .gallery-card-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--ink); }
+    .gallery-card-desc { font-size: 12px; color: var(--mist); line-height: 1.6; margin-top: 6px; }
 
-    .gallery-card-body {
-      padding: 16px 20px;
+    /* WRITING */
+    .writing-block { max-width: 640px; }
+    .writing-block p { font-size: 16px; line-height: 1.9; color: #4a4a5e; font-weight: 300; }
+    .writing-block p + p { margin-top: 16px; }
+    .writing-ornament { font-family: 'Cormorant Garamond', serif; font-size: 80px; line-height: 1; color: var(--border); float: left; margin-right: 8px; margin-top: -10px; }
+
+    .chapter-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
     }
 
-    .gallery-card-tag {
+    .chapter-row:last-child { border-bottom: none; }
+    a.chapter-row:hover { background: var(--warm); }
+    a.chapter-row:hover .chapter-arrow { transform: translateX(4px); color: var(--gold); }
+    .chapter-locked { opacity: 0.45; cursor: default; }
+    .chapter-num { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--gold); min-width: 32px; }
+    .chapter-info { flex: 1; }
+    .chapter-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .chapter-meta { font-size: 12px; color: var(--mist); }
+    .chapter-arrow { font-size: 18px; color: var(--mist); transition: transform 0.2s, color 0.2s; }
+    .chapter-hidden { display: none; }
+
+    .see-more-btn {
+      width: 100%;
+      padding: 14px 24px;
+      background: var(--warm);
+      border: none;
+      border-top: 1px solid var(--border);
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mist);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .see-more-btn:hover { background: var(--blush); color: var(--ink); }
+
+    /* PHOTO */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px;
+    }
+
+    .photo-item { overflow: hidden; border-radius: 4px; position: relative; }
+    .photo-item:first-child { grid-row: 1 / 3; }
+    .photo-item img { width: 100%; height: 100%; min-height: 200px; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .photo-item:hover img { transform: scale(1.04); }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 12px 16px;
+      background: linear-gradient(transparent, rgba(26,26,46,0.7));
+      color: white;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .photo-item:hover .photo-caption { opacity: 1; }
+
+    /* ═══════════════════════════════════════════════
+       DIARY TAB
+    ═══════════════════════════════════════════════ */
+
+    /* Layout */
+    .diary-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── Entry list ── */
+    .diary-entries { display: flex; flex-direction: column; gap: 32px; }
+
+    .diary-entry {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .diary-entry:hover { box-shadow: 0 12px 32px rgba(26,26,46,0.08); }
+
+    .entry-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 24px 0;
+    }
+
+    .entry-date-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--warm);
+      flex-shrink: 0;
+    }
+
+    .entry-date-day {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--plum);
+      line-height: 1;
+    }
+
+    .entry-date-month {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .entry-meta { flex: 1; }
+
+    .entry-mood {
       font-size: 10px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .gallery-card-title {
+    .entry-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
+      font-size: 22px;
+      font-style: italic;
       color: var(--ink);
+      line-height: 1.2;
     }
 
-    .gallery-card-desc {
-      font-size: 12px;
-      color: var(--mist);
-      line-height: 1.6;
-      margin-top: 6px;
-    }
-
-    /* ── WRITING ── */
-    .writing-block {
-      max-width: 640px;
-    }
-
-    .writing-block p {
-      font-size: 16px;
-      line-height: 1.9;
+    .entry-body {
+      padding: 16px 24px 20px;
+      font-size: 15px;
+      line-height: 1.85;
       color: #4a4a5e;
+      font-weight: 300;
+      white-space: pre-wrap;
+    }
+
+    /* Comment area within each entry */
+    .entry-comment-section {
+      border-top: 1px solid var(--border);
+      background: var(--warm);
+    }
+
+    .entry-comment-toggle {
+      width: 100%;
+      padding: 12px 24px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mist);
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .entry-comment-toggle:hover { color: var(--plum); }
+
+    .entry-comment-toggle .comment-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      background: var(--blush);
+      border-radius: 10px;
+      font-size: 10px;
+      color: var(--plum);
+      font-weight: 600;
+    }
+
+    .entry-comments-area { display: none; padding: 0 24px 20px; }
+    .entry-comments-area.open { display: block; }
+
+    .comment-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+
+    .comment-item {
+      display: flex;
+      gap: 12px;
+      animation: fadeUp 0.3s ease;
+    }
+
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .comment-bubble {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 0 8px 8px 8px;
+      padding: 10px 14px;
+      flex: 1;
+    }
+
+    .comment-nick {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--plum);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .comment-text {
+      font-size: 13px;
+      color: #4a4a5e;
+      line-height: 1.6;
       font-weight: 300;
     }
 
-    .writing-block p + p { margin-top: 16px; }
-
-    .writing-ornament {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 80px;
-      line-height: 1;
-      color: var(--border);
-      float: left;
-      margin-right: 8px;
-      margin-top: -10px;
+    .comment-time {
+      font-size: 10px;
+      color: var(--mist);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
     }
 
-    /* ── SOCIAL + FOOTER ── */
+    /* Comment form */
+    .comment-form { display: flex; flex-direction: column; gap: 8px; }
+
+    .comment-form-row { display: flex; gap: 8px; }
+
+    .comment-input {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .comment-input::placeholder { color: var(--mist); }
+    .comment-input:focus { border-color: var(--gold); }
+
+    .comment-nick-input { width: 140px; flex-shrink: 0; }
+
+    .comment-submit {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .comment-submit:hover { background: var(--plum); }
+
+    /* ── Sidebar: write new entry ── */
+    .diary-sidebar { position: sticky; top: 30px; }
+
+    .sidebar-panel {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .sidebar-panel-header {
+      padding: 16px 20px;
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-panel-header .lock-icon {
+      font-size: 12px;
+      color: var(--gold);
+    }
+
+    .sidebar-panel-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+    .field-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mist);
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .diary-input {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--cream);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .diary-input::placeholder { color: var(--mist); }
+    .diary-input:focus { border-color: var(--gold); }
+
+    textarea.diary-input {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.7;
+    }
+
+    .mood-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .mood-chip {
+      padding: 7px 4px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: transparent;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      color: var(--mist);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .mood-chip:hover { border-color: var(--gold); color: var(--ink); }
+    .mood-chip.selected { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+
+    .diary-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--plum), var(--rose));
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .diary-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .diary-submit:active { transform: translateY(0); }
+
+    /* Empty state */
+    .diary-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--mist);
+    }
+
+    .diary-empty-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
+    .diary-empty p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      padding: 14px 24px;
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      z-index: 9998;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      border-left: 3px solid var(--gold);
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* SOCIAL / FOOTER */
     .bottom-bar {
       display: flex;
       align-items: center;
@@ -590,62 +846,9 @@
 
     .social-row a:hover { color: var(--plum); transform: translateY(-2px); }
 
-    .footer-copy {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--mist);
-    }
+    .footer-copy { font-size: 11px; letter-spacing: 0.1em; color: var(--mist); }
+    .footer-copy a { color: var(--gold); text-decoration: none; }
 
-    .footer-copy a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    /* ── PHOTO TAB (bigger images) ── */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 12px;
-    }
-
-    .photo-item {
-      overflow: hidden;
-      border-radius: 4px;
-      position: relative;
-    }
-
-    .photo-item:first-child {
-      grid-row: 1 / 3;
-    }
-
-    .photo-item img {
-      width: 100%;
-      height: 100%;
-      min-height: 200px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .photo-item:hover img { transform: scale(1.04); }
-
-    .photo-caption {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 12px 16px;
-      background: linear-gradient(transparent, rgba(26,26,46,0.7));
-      color: white;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .photo-item:hover .photo-caption { opacity: 1; }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .page { padding: 40px 24px 40px 36px; }
       header { grid-template-columns: 1fr; gap: 30px; }
@@ -654,12 +857,17 @@
       .player-layout { grid-template-columns: 1fr; }
       .photo-grid { grid-template-columns: 1fr 1fr; }
       .photo-item:first-child { grid-row: auto; }
+      .diary-layout { grid-template-columns: 1fr; }
+      .diary-sidebar { position: static; }
     }
   </style>
 </head>
 <body>
 
 <div class="side-stripe"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <div class="page">
 
@@ -684,6 +892,7 @@
     <button class="nav-btn" data-tab="drawing">Drawing</button>
     <button class="nav-btn" data-tab="photography">Photography</button>
     <button class="nav-btn" data-tab="writing">Writing</button>
+    <button class="nav-btn" data-tab="diary">Diary</button>
   </nav>
 
   <!-- HOME TAB -->
@@ -691,26 +900,23 @@
     <div class="sec-heading">
       <span class="sec-title">About me</span>
       <div class="sec-line"></div>
-      <span class="sec-num">01 / 06</span>
+      <span class="sec-num">01 / 07</span>
     </div>
-
     <div class="home-intro">
       <div class="intro-text">
-        <p>Welcome to my little corner of the internet. I'm Judy, a creative soul who finds joy in the spaces between music, visual art, and gaming</p>
+        <p>Welcome to my little corner of the internet. I'm Judy, a creative soul who finds joy in the spaces between music, visual art, and gaming.</p>
         <p>I used to write for a magazine, I draw fan art, I photograph every moment, and I lose myself in games like Onmyoji and Animal Crossing.</p>
         <p>This site is my journal, my gallery, my fav music - all in one place. Make yourself at home.</p>
       </div>
       <div class="intro-quote">
         <blockquote>"Art is not what you see, but what you make others see."</blockquote>
-        <cite> -Edgar Degas- </cite>
+        <cite>— Edgar Degas —</cite>
       </div>
     </div>
-
     <div class="sec-heading" style="margin-top:50px;">
       <span class="sec-title">Highlights</span>
       <div class="sec-line"></div>
     </div>
-
     <div class="highlights-grid">
       <div class="hl-card">
         <img class="hl-card-img" src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/Screenshot%202025-09-07%20152306.png" alt="Music">
@@ -744,22 +950,19 @@
     <div class="sec-heading">
       <span class="sec-title">Music</span>
       <div class="sec-line"></div>
-      <span class="sec-num">02 / 06</span>
+      <span class="sec-num">02 / 07</span>
     </div>
-
     <div class="player-layout">
       <div>
         <div class="yt-frame-wrap">
           <div class="yt-loading" id="yt-loading"><div class="spinner"></div></div>
           <div id="yt-player"></div>
         </div>
-
         <div class="now-playing" id="now-playing">
           <div class="np-label">Now Playing</div>
           <div class="np-title" id="np-title">Thank U</div>
           <div class="np-artist" id="np-artist">Uknow</div>
         </div>
-
         <div class="player-controls">
           <button class="ctrl-btn" onclick="prevVideo()">⏮ Prev</button>
           <button class="ctrl-btn primary" onclick="playVideo()">▶ Play</button>
@@ -768,9 +971,8 @@
           <button class="ctrl-btn" onclick="nextVideo()">⏭ Next</button>
         </div>
       </div>
-
       <div class="playlist-sidebar">
-        <div class="playlist-header">Playlist — <span id="playlist-count">30</span> tracks</div>
+        <div class="playlist-header">Playlist — <span id="playlist-count">0</span> tracks</div>
         <div class="playlist-list" id="playlist-list"></div>
       </div>
     </div>
@@ -781,16 +983,15 @@
     <div class="sec-heading">
       <span class="sec-title">Gaming</span>
       <div class="sec-line"></div>
-      <span class="sec-num">03 / 06</span>
+      <span class="sec-num">03 / 07</span>
     </div>
-
     <div class="gallery">
       <div class="gallery-card">
         <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/onmyoji-game.jpg.webp" alt="Onmyoji">
         <div class="gallery-card-body">
           <div class="gallery-card-tag">RPG · NetEase Games</div>
           <div class="gallery-card-title">Onmyoji</div>
-          <p class="gallery-card-desc">Follow the legendary onmyoji Seimei on a journey to recover lost memories - encountering demons of all shapes and forms along the way.</p>
+          <p class="gallery-card-desc">Follow the legendary onmyoji Seimei on a journey to recover lost memories.</p>
         </div>
       </div>
       <div class="gallery-card">
@@ -814,11 +1015,10 @@
         <div class="gallery-card-body">
           <div class="gallery-card-tag">RPG · Level-5</div>
           <div class="gallery-card-title">Yo-kai Watch</div>
-          <p class="gallery-card-desc">A charming RPG series about befriending supernatural creatures - nostalgic and utterly delightful.</p>
+          <p class="gallery-card-desc">A charming RPG series about befriending supernatural creatures.</p>
         </div>
       </div>
     </div>
-
     <p style="margin-top:32px; font-size:14px; color:var(--mist); font-weight:300;">Also into all Pokémon main series games, SOS Oliver Town, and more...</p>
   </div>
 
@@ -827,9 +1027,8 @@
     <div class="sec-heading">
       <span class="sec-title">Drawing</span>
       <div class="sec-line"></div>
-      <span class="sec-num">04 / 06</span>
+      <span class="sec-num">04 / 07</span>
     </div>
-
     <div class="gallery">
       <div class="gallery-card">
         <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/scan0003.jpg" alt="Sailor Moon">
@@ -848,7 +1047,6 @@
         </div>
       </div>
     </div>
-
     <p style="margin-top:32px; font-size:14px; color:var(--mist); font-weight:300; font-style:italic;">More artwork in progress — revisiting old sketches and starting new ones.</p>
   </div>
 
@@ -857,11 +1055,9 @@
     <div class="sec-heading">
       <span class="sec-title">Photography</span>
       <div class="sec-line"></div>
-      <span class="sec-num">05 / 06</span>
+      <span class="sec-num">05 / 07</span>
     </div>
-
     <div class="photo-grid">
-      
       <div class="photo-item">
         <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/from%20the%20airplane.jpg" alt="From the flight">
         <div class="photo-caption">From my window</div>
@@ -874,9 +1070,7 @@
         <img src="https://raw.githubusercontent.com/Whyrusoserious/Picture/main/night%20beach.jpg" alt="Night beach">
         <div class="photo-caption">Night at the beach</div>
       </div>
-      
     </div>
-
     <p style="margin-top:32px; font-size:14px; color:var(--mist); font-weight:300;">Always looking for new light, new perspectives, new moments worth keeping.</p>
   </div>
 
@@ -885,14 +1079,136 @@
     <div class="sec-heading">
       <span class="sec-title">Writing</span>
       <div class="sec-line"></div>
-      <span class="sec-num">06 / 06</span>
+      <span class="sec-num">06 / 07</span>
     </div>
-
-    <div class="writing-block">
+    <div class="writing-block" style="margin-bottom: 50px;">
       <span class="writing-ornament">"</span>
       <p>Writing is the place where I go when everything else feels too loud. I spent years contributing to a magazine in Vietnam - features, essays, the occasional short story - learning how to find the right word when words are all you have.</p>
-      <p>Now I'm working on something longer. A novel. I can't say much yet, but I hope it finds its way to you soon.</p>
+      <p>Now I'm working on something longer. A novel. I hope it finds its way to you soon.</p>
       <p>Until then, every photo I take, every song I play, every drawing I finish - they're all part of the same story I'm trying to tell.</p>
+    </div>
+    <div class="sec-heading">
+      <span class="sec-title">My Novel</span>
+      <div class="sec-line"></div>
+    </div>
+    <div style="display: flex; gap: 40px; margin-bottom: 40px; align-items: flex-start;">
+      <img src="YOUR_NOVEL_COVER_IMAGE_URL" alt="Novel cover"
+        style="width: 140px; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); flex-shrink: 0;">
+      <div>
+        <div style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 10px;">Novel · 2026</div>
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink); margin-bottom: 14px;">TA LA CHINH TA</h2>
+        <p style="font-size: 15px; line-height: 1.9; color: #4a4a5e; font-weight: 300; max-width: 480px;">A fantasy novel</p>
+        <div style="margin-top: 16px; font-size: 12px; color: var(--mist);">
+          <span style="margin-right: 20px;">Genre: <strong style="color: var(--ink);">JUDY</strong></span>
+          <span>Status: <strong style="color: var(--rose);">Coming soon</strong></span>
+        </div>
+      </div>
+    </div>
+    <div style="border: 1px solid var(--border); border-radius: 4px; overflow: hidden;">
+      <div style="padding: 14px 24px; background: var(--ink); color: var(--cream); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500;">
+        Chapters — <span id="chapter-total"> 20 </span> total
+      </div>
+      <a href="YOUR_CHAPTER_1_LINK" target="_blank" rel="noopener" class="chapter-row">
+        <div class="chapter-num">01</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 1 </div><div class="chapter-meta">Published</div></div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a href="YOUR_CHAPTER_2_LINK" target="_blank" rel="noopener" class="chapter-row">
+        <div class="chapter-num">02</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 2</div><div class="chapter-meta">Published</div></div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a href="YOUR_CHAPTER_3_LINK" target="_blank" rel="noopener" class="chapter-row">
+        <div class="chapter-num">03</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 3</div><div class="chapter-meta">Published</div></div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a href="YOUR_CHAPTER_4_LINK" target="_blank" rel="noopener" class="chapter-row">
+        <div class="chapter-num">04</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 4</div><div class="chapter-meta">Published</div></div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a href="YOUR_CHAPTER_5_LINK" target="_blank" rel="noopener" class="chapter-row">
+        <div class="chapter-num">05</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 5</div><div class="chapter-meta">Published</div></div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a href="YOUR_CHAPTER_6_LINK" target="_blank" rel="noopener" class="chapter-row chapter-hidden">
+        <div class="chapter-num">06</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 6</div><div class="chapter-meta">Published</div></div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a href="YOUR_CHAPTER_7_LINK" target="_blank" rel="noopener" class="chapter-row chapter-hidden">
+        <div class="chapter-num">07</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 7</div><div class="chapter-meta">Published</div></div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <div class="chapter-row chapter-locked">
+        <div class="chapter-num">08</div>
+        <div class="chapter-info"><div class="chapter-title">Chapter 8 - Coming Soon</div><div class="chapter-meta">In progress...</div></div>
+        <div class="chapter-arrow" style="color: var(--border);">✦</div>
+      </div>
+      <button class="see-more-btn" id="see-more-btn" onclick="toggleChapters()">↓ See all chapters</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       DIARY TAB
+  ═══════════════════════════════════════ -->
+  <div class="tab" id="diary">
+    <div class="sec-heading">
+      <span class="sec-title">Diary</span>
+      <div class="sec-line"></div>
+      <span class="sec-num">07 / 07</span>
+    </div>
+
+    <div class="diary-layout">
+
+      <!-- LEFT: entries -->
+      <div>
+        <div class="diary-entries" id="diary-entries">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+      <!-- RIGHT: write new entry -->
+      <div class="diary-sidebar">
+        <div class="sidebar-panel">
+          <div class="sidebar-panel-header">
+            <span class="lock-icon">✦</span>
+            New Entry
+          </div>
+          <div class="sidebar-panel-body">
+
+            <div>
+              <label class="field-label">Title</label>
+              <input class="diary-input" id="entry-title" type="text" placeholder="What's today about?">
+            </div>
+
+            <div>
+              <label class="field-label">Mood</label>
+              <div class="mood-grid" id="mood-grid">
+                <button class="mood-chip" data-mood="✨ Bright">✨ Bright</button>
+                <button class="mood-chip" data-mood="🌧 Quiet">🌧 Quiet</button>
+                <button class="mood-chip" data-mood="💭 Lost">💭 Lost</button>
+                <button class="mood-chip" data-mood="🌸 Soft">🌸 Soft</button>
+                <button class="mood-chip" data-mood="🔥 Fired">🔥 Fired</button>
+                <button class="mood-chip" data-mood="😮‍💨 Tired">😮‍💨 Tired</button>
+                <button class="mood-chip" data-mood="💫 Dreamy">💫 Dreamy</button>
+                <button class="mood-chip" data-mood="🌙 Melancholy">🌙 Melancholy</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="field-label">Entry</label>
+              <textarea class="diary-input" id="entry-body" placeholder="Dear diary..."></textarea>
+            </div>
+
+            <button class="diary-submit" onclick="submitEntry()">Publish Entry →</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -911,19 +1227,16 @@
 </div><!-- /page -->
 
 <script>
-  // Clock
+  /* ─── CLOCK ─── */
   function updateClock() {
-    const now = new Date();
     document.getElementById('clock').textContent =
-      now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
   }
   setInterval(updateClock, 1000);
   updateClock();
-
-  // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Tabs
+  /* ─── TABS ─── */
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -934,148 +1247,330 @@
     });
   });
 
-  let player;
-  let currentSongIndex = 0;
-
- const playlist = [
-      { title: "Hong Chieu Nguyen", artist: "Zion Symphony", videoId: "s91ePdLfL48" },
-      { title: "That tho", artist: "Hua Nhat Niem", videoId: "Hcm4ZcZbry0" },
-      { title: "Thank U", artist: "Uknow", videoId: "ZL8jYBVef7U" },
-      { title: "We lonely", artist: "Cao Huc", videoId: "eIqvxBgvKXI" },
-      { title: "Nao co de tam toi", artist: "Cao Huc", videoId: "WHukKkFSKbo" },
-      { title: "Nguoi noi doi truoc", artist: "h3R3", videoId: "BvtQdYViEsQ" },
-      { title: "Melatonin", artist: "Giang Hao Nam", videoId: "n9La_XLxAR0" },
-      { title: "Insomnia", artist: "Wheesung", videoId: "1iTT2csCtYY" },
-      { title: "Weekend", artist: "JangWooHyuk", videoId: "9vm5YuiueWo" },
-      { title: "Gui quan mot khuc", artist: "Chap To He", videoId: "zWTeLOLYITo"},
-      { title: "Love and Deepspace", artist: "Sarah Brightman", videoId: "urONohYpdVA" },
-      { title: "Khong the quen duoc em", artist: "h3R3", videoId: "lNCBLSmenYc" },
-      { title: "Broken Hero", artist: "Elena Westermann ft 2WEI", videoId: "NwEt3cqoYhA" },
-      { title: "Trung phung", artist: "Ung Gia Loi - Tru Tien OST", videoId: "ukywLX-KL7I" },
-      { title: "Huong vi tieu tan", artist: "Cao Huc", videoId: "xbvKUsi9Pa4" },
-      { title: "Fiction", artist: "BEAST", videoId: "epJfDd9qIq0" },
-      { title: "Yen Vo Hiet", artist: "Tuong Tuyet Nhi", videoId: "lNCViM7R8N8" },
-      { title: "Hurt", artist: "Ahn Jea Wook", videoId: "JcMfdNQ6Ehs" },
-      { title: "Luong Nan", artist: "Gia Moc", videoId: "gDZzfo19E1M" },
-      { title: "Thoi quen anh ta di", artist: "Oa Oa", videoId: "xuRcJNlI-eA" },
-      { title: "Nan giai", artist: "Ba Dang Don Chau", videoId: "xzvM8r-Y00s" },
-      { title: "Love is all around", artist: "Wet Wet Wet", videoId: "h3gEkwhdXUE" },
-      { title: "Papillon", artist: "Luu Gia, James, TVL, Ly Thua Huyen", videoId: "p9QERQduyeE" },
-      { title: "That tinh", artist: "Grasshopper", videoId: "nXJSTkUXxLI" },
-      { title: "Coffee", artist: "Giang Hao Nam", videoId: "_s6LroMz7gA" },
-      { title: "Ngo Khong", artist: "Truong Ky - Bach Cu Cuong", videoId: "rCbdoo2wqrw" },
-      { title: "Express Mode", artist: "SJ", videoId: "pykdDgWX7-M" },
-      { title: "Bat van biet ly", artist: "Chi Tiem Tieu", videoId: "sBrNZ80iKGM" },
-      { title: "Whataya want from me", artist: "Adam Lambert", videoId: "X1Fqn9du7xo" },
-      { title: "Tho tu cau phanh ca", artist: "Gia Moc", videoId: "Y6bAnWGEmR4" },
-      { title: "Body to body", artist: "BTS", videoId: "uqfF_qv477k" },
-      { title: "A letter - Tri", artist: "ONer", videoId: "gawWETs7dV0" },
-      { title: "Forever", artist: "Ahn Jea Wook", videoId: "tCNFlB_p4C4" },
-      { title: "Hong chieu nguyen", artist: "hot tiktok", videoId: "2O80x5SREvc" },
-      { title: "Da da da", artist: "Tanir ft Tyomcha", videoId: "xGQts0WKxJI" },
-      { title: "Dien vao khoang khong", artist: "Gia Moc", videoId: "5EFDy3VmZIM" },
-      { title: "Dong tuoc dai", artist: "Gia Moc", videoId: "N1BE2H8P-TU" },
-       { title: "Lucid dream", artist: "Cao Huc", videoId: "61ZFQSqR2S4" },
-      { title: "Muon chet nhung lai khong dam", artist: "Tinh Lung", videoId: "oMCsvyHIsYc" },
-      { title: "Muon gap lai 1 lan", artist: "Cao Huc", videoId: "wTsFgDRFy0w" },
-      { title: "Ban ho sa", artist: "Luu Kha Hi - Zion Symphony", videoId: "xC_a7WsDBpo" },
-  ];
-
-  // Update Now Playing
-  function updateNowPlaying() {
-    const song = playlist[currentSongIndex];
-    document.getElementById('np-title').textContent = song.title;
-    document.getElementById('np-artist').textContent = song.artist;
+  /* ─── CHAPTERS ─── */
+  function toggleChapters() {
+    const hidden = document.querySelectorAll('.chapter-hidden');
+    const btn = document.getElementById('see-more-btn');
+    const isExpanded = btn.dataset.expanded === 'true';
+    hidden.forEach(el => el.style.display = isExpanded ? 'none' : 'flex');
+    btn.dataset.expanded = !isExpanded;
+    btn.textContent = isExpanded ? '↓ See all chapters' : '↑ Show less';
   }
 
-  // Render playlist
+  /* ─── MUSIC ─── */
+  let player, currentSongIndex = 0;
+
+  const playlist = [
+    { title: "Hong Chieu Nguyen", artist: "Zion Symphony", videoId: "s91ePdLfL48" },
+    { title: "That tho", artist: "Hua Nhat Niem", videoId: "Hcm4ZcZbry0" },
+    { title: "Thank U", artist: "Uknow", videoId: "ZL8jYBVef7U" },
+    { title: "We lonely", artist: "Cao Huc", videoId: "eIqvxBgvKXI" },
+    { title: "Nao co de tam toi", artist: "Cao Huc", videoId: "WHukKkFSKbo" },
+    { title: "Nguoi noi doi truoc", artist: "h3R3", videoId: "BvtQdYViEsQ" },
+    { title: "Melatonin", artist: "Giang Hao Nam", videoId: "n9La_XLxAR0" },
+    { title: "Insomnia", artist: "Wheesung", videoId: "1iTT2csCtYY" },
+    { title: "Weekend", artist: "JangWooHyuk", videoId: "9vm5YuiueWo" },
+    { title: "Gui quan mot khuc", artist: "Chap To He", videoId: "zWTeLOLYITo" },
+    { title: "Love and Deepspace", artist: "Sarah Brightman", videoId: "urONohYpdVA" },
+    { title: "Khong the quen duoc em", artist: "h3R3", videoId: "lNCBLSmenYc" },
+    { title: "Broken Hero", artist: "Elena Westermann ft 2WEI", videoId: "NwEt3cqoYhA" },
+    { title: "Trung phung", artist: "Ung Gia Loi - Tru Tien OST", videoId: "ukywLX-KL7I" },
+    { title: "Huong vi tieu tan", artist: "Cao Huc", videoId: "xbvKUsi9Pa4" },
+    { title: "Fiction", artist: "BEAST", videoId: "epJfDd9qIq0" },
+    { title: "Yen Vo Hiet", artist: "Tuong Tuyet Nhi", videoId: "lNCViM7R8N8" },
+    { title: "Hurt", artist: "Ahn Jea Wook", videoId: "JcMfdNQ6Ehs" },
+    { title: "Luong Nan", artist: "Gia Moc", videoId: "gDZzfo19E1M" },
+    { title: "Thoi quen anh ta di", artist: "Oa Oa", videoId: "xuRcJNlI-eA" },
+    { title: "Nan giai", artist: "Ba Dang Don Chau", videoId: "xzvM8r-Y00s" },
+    { title: "Love is all around", artist: "Wet Wet Wet", videoId: "h3gEkwhdXUE" },
+    { title: "Papillon", artist: "Luu Gia, James, TVL, Ly Thua Huyen", videoId: "p9QERQduyeE" },
+    { title: "That tinh", artist: "Grasshopper", videoId: "nXJSTkUXxLI" },
+    { title: "Coffee", artist: "Giang Hao Nam", videoId: "_s6LroMz7gA" },
+    { title: "Ngo Khong", artist: "Truong Ky - Bach Cu Cuong", videoId: "rCbdoo2wqrw" },
+    { title: "Express Mode", artist: "SJ", videoId: "pykdDgWX7-M" },
+    { title: "Bat van biet ly", artist: "Chi Tiem Tieu", videoId: "sBrNZ80iKGM" },
+    { title: "Whataya want from me", artist: "Adam Lambert", videoId: "X1Fqn9du7xo" },
+    { title: "Tho tu cau phanh ca", artist: "Gia Moc", videoId: "Y6bAnWGEmR4" },
+    { title: "Body to body", artist: "BTS", videoId: "uqfF_qv477k" },
+    { title: "A letter - Tri", artist: "ONer", videoId: "gawWETs7dV0" },
+    { title: "Forever", artist: "Ahn Jea Wook", videoId: "tCNFlB_p4C4" },
+    { title: "Hong chieu nguyen", artist: "hot tiktok", videoId: "2O80x5SREvc" },
+    { title: "Da da da", artist: "Tanir ft Tyomcha", videoId: "xGQts0WKxJI" },
+    { title: "Dien vao khoang khong", artist: "Gia Moc", videoId: "5EFDy3VmZIM" },
+    { title: "Dong tuoc dai", artist: "Gia Moc", videoId: "N1BE2H8P-TU" },
+    { title: "Lucid dream", artist: "Cao Huc", videoId: "61ZFQSqR2S4" },
+    { title: "Muon chet nhung lai khong dam", artist: "Tinh Lung", videoId: "oMCsvyHIsYc" },
+    { title: "Muon gap lai 1 lan", artist: "Cao Huc", videoId: "wTsFgDRFy0w" },
+    { title: "Ban ho sa", artist: "Luu Kha Hi - Zion Symphony", videoId: "xC_a7WsDBpo" },
+  ];
+
+  function updateNowPlaying() {
+    const s = playlist[currentSongIndex];
+    document.getElementById('np-title').textContent = s.title;
+    document.getElementById('np-artist').textContent = s.artist;
+  }
+
   function renderPlaylist() {
-
-    const playlistMenu = document.getElementById('playlist-list');
-    playlistMenu.innerHTML = '';
-
-    playlist.forEach((song, index) => {
-
-      const songItem = document.createElement('div');
-
-      songItem.className = `song-item ${index === currentSongIndex ? 'active' : ''}`;
-
-      songItem.innerHTML = `
-        <div class="song-num">${index + 1}</div>
-        <div class="song-info">
-          <div class="song-title">${song.title}</div>
-          <div class="song-artist">${song.artist}</div>
-        </div>
-      `;
-
-      songItem.addEventListener('click', () => {
-        currentSongIndex = index;
+    const list = document.getElementById('playlist-list');
+    list.innerHTML = '';
+    playlist.forEach((song, i) => {
+      const el = document.createElement('div');
+      el.className = `song-item ${i === currentSongIndex ? 'active' : ''}`;
+      el.innerHTML = `<div class="song-num">${i + 1}</div><div class="song-info"><div class="song-title">${song.title}</div><div class="song-artist">${song.artist}</div></div>`;
+      el.addEventListener('click', () => {
+        currentSongIndex = i;
         player.loadVideoById(song.videoId);
         updateNowPlaying();
         renderPlaylist();
       });
-
-      playlistMenu.appendChild(songItem);
+      list.appendChild(el);
     });
-
-    document.getElementById("playlist-count").textContent = playlist.length;
+    document.getElementById('playlist-count').textContent = playlist.length;
   }
 
-  // YouTube Player
   function onYouTubeIframeAPIReady() {
-
     player = new YT.Player('yt-player', {
-
       videoId: playlist[currentSongIndex].videoId,
-
-      playerVars: {
-        autoplay: 0,
-        controls: 1,
-        rel: 0
-      },
-
+      playerVars: { autoplay: 0, controls: 1, rel: 0 },
       events: {
-
         onReady: () => {
-
           document.getElementById('yt-loading').style.display = 'none';
           updateNowPlaying();
           renderPlaylist();
-
         },
-
-        onStateChange: (e) => {
-          if (e.data === YT.PlayerState.ENDED) {
-            nextVideo();
-          }
-        }
+        onStateChange: (e) => { if (e.data === YT.PlayerState.ENDED) nextVideo(); }
       }
     });
   }
 
-  function playVideo() { player.playVideo(); }
+  function playVideo()  { player.playVideo(); }
   function pauseVideo() { player.pauseVideo(); }
-  function stopVideo() { player.stopVideo(); }
+  function stopVideo()  { player.stopVideo(); }
 
   function nextVideo() {
     currentSongIndex = (currentSongIndex + 1) % playlist.length;
     player.loadVideoById(playlist[currentSongIndex].videoId);
-    updateNowPlaying();
-    renderPlaylist();
+    updateNowPlaying(); renderPlaylist();
   }
 
   function prevVideo() {
     currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
     player.loadVideoById(playlist[currentSongIndex].videoId);
-    updateNowPlaying();
-    renderPlaylist();
+    updateNowPlaying(); renderPlaylist();
   }
 
-  // Load YouTube API
   const tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   document.body.appendChild(tag);
 
+  /* ═══════════════════════════════════════
+     DIARY SYSTEM
+  ═══════════════════════════════════════ */
+
+  const DIARY_KEY    = 'judy_diary_entries';
+  const COMMENTS_KEY = 'judy_diary_comments';
+  /* Avatar colours for commenters */
+  const avatarColors = ['#7b4f6e','#c17b5e','#c9a96e','#4a7b9d','#6e7b4f','#9d4a7b','#4a4a9d','#7b4a6e'];
+
+  function stringToColor(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    return avatarColors[Math.abs(hash) % avatarColors.length];
+  }
+
+  function loadEntries() {
+    try { return JSON.parse(localStorage.getItem(DIARY_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveEntries(entries) {
+    localStorage.setItem(DIARY_KEY, JSON.stringify(entries));
+  }
+
+  function loadComments() {
+    try { return JSON.parse(localStorage.getItem(COMMENTS_KEY)) || {}; }
+    catch { return {}; }
+  }
+
+  function saveComments(comments) {
+    localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function formatTime(iso) {
+    const d = new Date(iso);
+    return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function getDay(iso)   { return new Date(iso).getDate().toString().padStart(2, '0'); }
+  function getMonth(iso) { return new Date(iso).toLocaleDateString('en-GB', { month: 'short' }).toUpperCase(); }
+
+  /* ── Render all entries ── */
+  function renderEntries() {
+    const entries  = loadEntries();
+    const comments = loadComments();
+    const container = document.getElementById('diary-entries');
+    container.innerHTML = '';
+
+    if (!entries.length) {
+      container.innerHTML = `
+        <div class="diary-empty">
+          <div class="diary-empty-icon">✦</div>
+          <p>No entries yet — write your first one.</p>
+        </div>`;
+      return;
+    }
+
+    // newest first
+    [...entries].reverse().forEach((entry, reversedIndex) => {
+      const realIndex = entries.length - 1 - reversedIndex;
+      const entryComments = comments[entry.id] || [];
+      const el = document.createElement('div');
+      el.className = 'diary-entry';
+      el.innerHTML = `
+        <div class="entry-header">
+          <div class="entry-date-block">
+            <div class="entry-date-day">${getDay(entry.date)}</div>
+            <div class="entry-date-month">${getMonth(entry.date)}</div>
+          </div>
+          <div class="entry-meta">
+            ${entry.mood ? `<div class="entry-mood">${entry.mood}</div>` : ''}
+            <div class="entry-title">${escapeHtml(entry.title)}</div>
+          </div>
+        </div>
+        <div class="entry-body">${escapeHtml(entry.body)}</div>
+        <div class="entry-comment-section">
+          <button class="entry-comment-toggle" onclick="toggleComments('${entry.id}')">
+            💬 &nbsp;Comments
+            <span class="comment-count" id="count-${entry.id}">${entryComments.length}</span>
+          </button>
+          <div class="entry-comments-area" id="comments-${entry.id}">
+            <div class="comment-list" id="comment-list-${entry.id}">
+              ${renderCommentItems(entryComments)}
+            </div>
+            <div class="comment-form">
+              <div class="comment-form-row">
+                <input class="comment-input comment-nick-input" id="nick-${entry.id}" type="text" placeholder="Your nickname" maxlength="30">
+                <input class="comment-input" id="cmsg-${entry.id}" type="text" placeholder="Leave a note for Judy..." maxlength="300">
+                <button class="comment-submit" onclick="submitComment('${entry.id}')">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      container.appendChild(el);
+    });
+  }
+
+  function renderCommentItems(comments) {
+    if (!comments.length) return '<p style="font-size:12px;color:var(--mist);padding:8px 0;font-style:italic;">No comments yet — be the first!</p>';
+    return comments.map(c => `
+      <div class="comment-item">
+        <div class="comment-avatar" style="background:${stringToColor(c.nick)}">${c.nick.charAt(0).toUpperCase()}</div>
+        <div class="comment-bubble">
+          <div class="comment-nick">${escapeHtml(c.nick)}</div>
+          <div class="comment-text">${escapeHtml(c.text)}</div>
+          <div class="comment-time">${formatDate(c.date)} · ${formatTime(c.date)}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  function toggleComments(entryId) {
+    const area = document.getElementById(`comments-${entryId}`);
+    area.classList.toggle('open');
+  }
+
+  function submitComment(entryId) {
+    const nickEl = document.getElementById(`nick-${entryId}`);
+    const msgEl  = document.getElementById(`cmsg-${entryId}`);
+    const nick = nickEl.value.trim();
+    const text = msgEl.value.trim();
+
+    if (!nick) { showToast('Please enter a nickname 🌸'); nickEl.focus(); return; }
+    if (!text) { showToast('Write something first ✦'); msgEl.focus(); return; }
+
+    const comments = loadComments();
+    if (!comments[entryId]) comments[entryId] = [];
+    const newComment = { nick, text, date: new Date().toISOString() };
+    comments[entryId].push(newComment);
+    saveComments(comments);
+
+    // update UI
+    const list = document.getElementById(`comment-list-${entryId}`);
+    list.innerHTML = renderCommentItems(comments[entryId]);
+    document.getElementById(`count-${entryId}`).textContent = comments[entryId].length;
+
+    nickEl.value = '';
+    msgEl.value = '';
+    showToast('Comment posted! 💬');
+  }
+
+  /* ── Mood chips ── */
+  let selectedMood = '';
+
+  document.getElementById('mood-grid').addEventListener('click', e => {
+    const chip = e.target.closest('.mood-chip');
+    if (!chip) return;
+    document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('selected'));
+    if (chip.dataset.mood === selectedMood) {
+      selectedMood = '';
+    } else {
+      chip.classList.add('selected');
+      selectedMood = chip.dataset.mood;
+    }
+  });
+
+  /* ── Submit entry ── */
+  function submitEntry() {
+    const title = document.getElementById('entry-title').value.trim();
+    const body  = document.getElementById('entry-body').value.trim();
+
+    if (!title) { showToast('Give your entry a title ✦'); return; }
+    if (!body)  { showToast('Write something in your entry ✦'); return; }
+
+    const entries = loadEntries();
+    const entry = {
+      id:   'e' + Date.now(),
+      title,
+      body,
+      mood: selectedMood,
+      date: new Date().toISOString(),
+    };
+    entries.push(entry);
+    saveEntries(entries);
+
+    document.getElementById('entry-title').value = '';
+    document.getElementById('entry-body').value  = '';
+    document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('selected'));
+    selectedMood = '';
+
+    renderEntries();
+    showToast('Entry published ✦');
+  }
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  /* ── HTML escape ── */
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  /* ── Init ── */
+  renderEntries();
 </script>
 </body>
 </html>
