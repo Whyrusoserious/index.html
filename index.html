@@ -448,11 +448,7 @@
 
     .photo-item:hover .photo-caption { opacity: 1; }
 
-    /* ═══════════════════════════════════════════════
-       DIARY TAB
-    ═══════════════════════════════════════════════ */
-
-    /* Layout */
+    /* DIARY TAB */
     .diary-layout {
       display: grid;
       grid-template-columns: 1fr 380px;
@@ -460,7 +456,6 @@
       align-items: start;
     }
 
-    /* ── Entry list ── */
     .diary-entries { display: flex; flex-direction: column; gap: 32px; }
 
     .diary-entry {
@@ -539,7 +534,6 @@
       white-space: pre-wrap;
     }
 
-    /* Comment area within each entry */
     .entry-comment-section {
       border-top: 1px solid var(--border);
       background: var(--warm);
@@ -636,9 +630,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* Comment form */
     .comment-form { display: flex; flex-direction: column; gap: 8px; }
-
     .comment-form-row { display: flex; gap: 8px; }
 
     .comment-input {
@@ -657,7 +649,6 @@
 
     .comment-input::placeholder { color: var(--mist); }
     .comment-input:focus { border-color: var(--gold); }
-
     .comment-nick-input { width: 140px; flex-shrink: 0; }
 
     .comment-submit {
@@ -679,7 +670,6 @@
 
     .comment-submit:hover { background: var(--plum); }
 
-    /* ── Sidebar: write new entry ── */
     .diary-sidebar { position: sticky; top: 30px; }
 
     .sidebar-panel {
@@ -702,11 +692,7 @@
       gap: 8px;
     }
 
-    .sidebar-panel-header .lock-icon {
-      font-size: 12px;
-      color: var(--gold);
-    }
-
+    .sidebar-panel-header .lock-icon { font-size: 12px; color: var(--gold); }
     .sidebar-panel-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 
     .field-label {
@@ -781,21 +767,16 @@
     }
 
     .diary-submit:hover { opacity: 0.9; transform: translateY(-1px); }
-
     .diary-submit:active { transform: translateY(0); }
+    .diary-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    /* Empty state */
     .diary-empty {
       text-align: center;
       padding: 60px 20px;
       color: var(--mist);
     }
 
-    .diary-empty-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-      opacity: 0.4;
-    }
+    .diary-empty-icon { font-size: 40px; margin-bottom: 16px; opacity: 0.4; }
 
     .diary-empty p {
       font-family: 'Cormorant Garamond', serif;
@@ -803,7 +784,22 @@
       font-style: italic;
     }
 
-    /* Toast notification */
+    /* Loading state */
+    .diary-loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--mist);
+    }
+
+    .diary-loading .spinner {
+      margin: 0 auto 16px;
+    }
+
+    .diary-loading p {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+
     .toast {
       position: fixed;
       bottom: 32px;
@@ -825,7 +821,6 @@
 
     .toast.show { transform: translateY(0); opacity: 1; }
 
-    /* SOCIAL / FOOTER */
     .bottom-bar {
       display: flex;
       align-items: center;
@@ -865,8 +860,6 @@
 <body>
 
 <div class="side-stripe"></div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <div class="page">
@@ -1152,9 +1145,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       DIARY TAB
-  ═══════════════════════════════════════ -->
+  <!-- DIARY TAB -->
   <div class="tab" id="diary">
     <div class="sec-heading">
       <span class="sec-title">Diary</span>
@@ -1163,15 +1154,15 @@
     </div>
 
     <div class="diary-layout">
-
-      <!-- LEFT: entries -->
       <div>
         <div class="diary-entries" id="diary-entries">
-          <!-- rendered by JS -->
+          <div class="diary-loading">
+            <div class="spinner"></div>
+            <p style="margin-top:16px;">Loading entries...</p>
+          </div>
         </div>
       </div>
 
-      <!-- RIGHT: write new entry -->
       <div class="diary-sidebar">
         <div class="sidebar-panel">
           <div class="sidebar-panel-header">
@@ -1179,12 +1170,10 @@
             New Entry
           </div>
           <div class="sidebar-panel-body">
-
             <div>
               <label class="field-label">Title</label>
               <input class="diary-input" id="entry-title" type="text" placeholder="What's today about?">
             </div>
-
             <div>
               <label class="field-label">Mood</label>
               <div class="mood-grid" id="mood-grid">
@@ -1198,17 +1187,14 @@
                 <button class="mood-chip" data-mood="🌙 Melancholy">🌙 Melancholy</button>
               </div>
             </div>
-
             <div>
               <label class="field-label">Entry</label>
               <textarea class="diary-input" id="entry-body" placeholder="Dear diary..."></textarea>
             </div>
-
-            <button class="diary-submit" onclick="submitEntry()">Publish Entry →</button>
+            <button class="diary-submit" id="diary-submit-btn" onclick="submitEntry()">Publish Entry →</button>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -1364,36 +1350,18 @@
   document.body.appendChild(tag);
 
   /* ═══════════════════════════════════════
-     DIARY SYSTEM
+     DIARY SYSTEM - Uses window.storage API for persistence (async, shared across devices)
   ═══════════════════════════════════════ */
 
-  const DIARY_KEY    = 'judy_diary_entries';
-  const COMMENTS_KEY = 'judy_diary_comments';
-  /* Avatar colours for commenters */
+  const ENTRIES_KEY  = 'judy_diary_entries_v2';
+  const COMMENTS_KEY = 'judy_diary_comments_v2';
+
   const avatarColors = ['#7b4f6e','#c17b5e','#c9a96e','#4a7b9d','#6e7b4f','#9d4a7b','#4a4a9d','#7b4a6e'];
 
   function stringToColor(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
     return avatarColors[Math.abs(hash) % avatarColors.length];
-  }
-
-  function loadEntries() {
-    try { return JSON.parse(localStorage.getItem(DIARY_KEY)) || []; }
-    catch { return []; }
-  }
-
-  function saveEntries(entries) {
-    localStorage.setItem(DIARY_KEY, JSON.stringify(entries));
-  }
-
-  function loadComments() {
-    try { return JSON.parse(localStorage.getItem(COMMENTS_KEY)) || {}; }
-    catch { return {}; }
-  }
-
-  function saveComments(comments) {
-    localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
   }
 
   function formatDate(iso) {
@@ -1409,11 +1377,42 @@
   function getDay(iso)   { return new Date(iso).getDate().toString().padStart(2, '0'); }
   function getMonth(iso) { return new Date(iso).toLocaleDateString('en-GB', { month: 'short' }).toUpperCase(); }
 
+  /* ── Storage helpers (async, shared=true for cross-device) ── */
+
+  async function loadEntries() {
+    try {
+      const result = await window.storage.get(ENTRIES_KEY, true);
+      return result ? JSON.parse(result.value) : [];
+    } catch { return []; }
+  }
+
+  async function saveEntries(entries) {
+    try {
+      await window.storage.set(ENTRIES_KEY, JSON.stringify(entries), true);
+    } catch(e) { console.error('Save entries failed', e); }
+  }
+
+  async function loadComments() {
+    try {
+      const result = await window.storage.get(COMMENTS_KEY, true);
+      return result ? JSON.parse(result.value) : {};
+    } catch { return {}; }
+  }
+
+  async function saveComments(comments) {
+    try {
+      await window.storage.set(COMMENTS_KEY, JSON.stringify(comments), true);
+    } catch(e) { console.error('Save comments failed', e); }
+  }
+
   /* ── Render all entries ── */
-  function renderEntries() {
-    const entries  = loadEntries();
-    const comments = loadComments();
+  async function renderEntries() {
     const container = document.getElementById('diary-entries');
+    container.innerHTML = `<div class="diary-loading"><div class="spinner"></div><p style="margin-top:16px;font-size:13px;letter-spacing:0.1em;">Loading entries...</p></div>`;
+
+    const entries  = await loadEntries();
+    const comments = await loadComments();
+
     container.innerHTML = '';
 
     if (!entries.length) {
@@ -1425,9 +1424,7 @@
       return;
     }
 
-    // newest first
-    [...entries].reverse().forEach((entry, reversedIndex) => {
-      const realIndex = entries.length - 1 - reversedIndex;
+    [...entries].reverse().forEach(entry => {
       const entryComments = comments[entry.id] || [];
       const el = document.createElement('div');
       el.className = 'diary-entry';
@@ -1479,11 +1476,10 @@
   }
 
   function toggleComments(entryId) {
-    const area = document.getElementById(`comments-${entryId}`);
-    area.classList.toggle('open');
+    document.getElementById(`comments-${entryId}`).classList.toggle('open');
   }
 
-  function submitComment(entryId) {
+  async function submitComment(entryId) {
     const nickEl = document.getElementById(`nick-${entryId}`);
     const msgEl  = document.getElementById(`cmsg-${entryId}`);
     const nick = nickEl.value.trim();
@@ -1492,19 +1488,22 @@
     if (!nick) { showToast('Please enter a nickname 🌸'); nickEl.focus(); return; }
     if (!text) { showToast('Write something first ✦'); msgEl.focus(); return; }
 
-    const comments = loadComments();
-    if (!comments[entryId]) comments[entryId] = [];
-    const newComment = { nick, text, date: new Date().toISOString() };
-    comments[entryId].push(newComment);
-    saveComments(comments);
+    const btn = msgEl.closest('.comment-form').querySelector('.comment-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
 
-    // update UI
-    const list = document.getElementById(`comment-list-${entryId}`);
-    list.innerHTML = renderCommentItems(comments[entryId]);
+    const comments = await loadComments();
+    if (!comments[entryId]) comments[entryId] = [];
+    comments[entryId].push({ nick, text, date: new Date().toISOString() });
+    await saveComments(comments);
+
+    document.getElementById(`comment-list-${entryId}`).innerHTML = renderCommentItems(comments[entryId]);
     document.getElementById(`count-${entryId}`).textContent = comments[entryId].length;
 
     nickEl.value = '';
     msgEl.value = '';
+    btn.disabled = false;
+    btn.textContent = 'Send';
     showToast('Comment posted! 💬');
   }
 
@@ -1523,31 +1522,37 @@
     }
   });
 
-  /* ── Submit entry ── */
-  function submitEntry() {
+  /* ── Submit new entry ── */
+  async function submitEntry() {
     const title = document.getElementById('entry-title').value.trim();
     const body  = document.getElementById('entry-body').value.trim();
 
     if (!title) { showToast('Give your entry a title ✦'); return; }
     if (!body)  { showToast('Write something in your entry ✦'); return; }
 
-    const entries = loadEntries();
-    const entry = {
-      id:   'e' + Date.now(),
+    const btn = document.getElementById('diary-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Publishing...';
+
+    const entries = await loadEntries();
+    entries.push({
+      id:    'e' + Date.now(),
       title,
       body,
-      mood: selectedMood,
-      date: new Date().toISOString(),
-    };
-    entries.push(entry);
-    saveEntries(entries);
+      mood:  selectedMood,
+      date:  new Date().toISOString(),
+    });
+    await saveEntries(entries);
 
     document.getElementById('entry-title').value = '';
     document.getElementById('entry-body').value  = '';
     document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('selected'));
     selectedMood = '';
 
-    renderEntries();
+    btn.disabled = false;
+    btn.textContent = 'Publish Entry →';
+
+    await renderEntries();
     showToast('Entry published ✦');
   }
 
