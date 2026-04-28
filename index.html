@@ -1350,12 +1350,64 @@
   document.body.appendChild(tag);
 
   /* ═══════════════════════════════════════
-     DIARY SYSTEM - Uses window.storage API for persistence (async, shared across devices)
+     DIARY SYSTEM — Firebase Firestore (cross-device sync)
+     
+     SETUP INSTRUCTIONS:
+     1. Go to https://console.firebase.google.com
+     2. Create a new project (e.g. "judy-diary")
+     3. Click "Firestore Database" → Create database → Start in test mode
+     4. Click the gear icon → Project settings → Your apps → Web (</>)
+     5. Register app, then copy the firebaseConfig values below
+     6. Replace the placeholder values with your real config
   ═══════════════════════════════════════ */
 
-  const ENTRIES_KEY  = 'judy_diary_entries_v2';
-  const COMMENTS_KEY = 'judy_diary_comments_v2';
+  const FIREBASE_CONFIG = {
+    apiKey:            "AIzaSyCwyHWFhjBwEQ4lvQ-vZhi-rAnwizQhDhA",
+    authDomain:        "judy-diary.firebaseapp.com",
+    projectId:         "judy-diary",
+    storageBucket:     "judy-diary.firebasestorage.app",
+    messagingSenderId: "403568080520",
+    appId:             "1:403568080520:web:fc47c8d0f1576686f3d13d"
+  };
 
+  /* ── Load Firebase SDK ── */
+  let db = null;
+  let firebaseReady = false;
+
+  async function initFirebase() {
+    return new Promise((resolve) => {
+      // Check if placeholder config
+      if (FIREBASE_CONFIG.apiKey.startsWith('REPLACE_')) {
+        console.warn('Firebase not configured yet. Please fill in FIREBASE_CONFIG.');
+        resolve(false);
+        return;
+      }
+
+      const script1 = document.createElement('script');
+      script1.type = 'module';
+      script1.textContent = `
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, orderBy, query, serverTimestamp }
+          from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+        const app = initializeApp(${JSON.stringify(FIREBASE_CONFIG)});
+        const firestore = getFirestore(app);
+
+        // Expose to global scope
+        window._fb = {
+          firestore,
+          collection, addDoc, getDocs, doc, updateDoc, orderBy, query, serverTimestamp
+        };
+        window.dispatchEvent(new Event('firebase-ready'));
+      `;
+      document.head.appendChild(script1);
+
+      window.addEventListener('firebase-ready', () => resolve(true), { once: true });
+      setTimeout(() => resolve(false), 8000); // timeout fallback
+    });
+  }
+
+  /* ── Helpers ── */
   const avatarColors = ['#7b4f6e','#c17b5e','#c9a96e','#4a7b9d','#6e7b4f','#9d4a7b','#4a4a9d','#7b4a6e'];
 
   function stringToColor(str) {
@@ -1370,48 +1422,77 @@
   }
 
   function formatTime(iso) {
-    const d = new Date(iso);
-    return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   }
 
   function getDay(iso)   { return new Date(iso).getDate().toString().padStart(2, '0'); }
   function getMonth(iso) { return new Date(iso).toLocaleDateString('en-GB', { month: 'short' }).toUpperCase(); }
 
-  /* ── Storage helpers (async, shared=true for cross-device) ── */
-
-  async function loadEntries() {
-    try {
-      const result = await window.storage.get(ENTRIES_KEY, true);
-      return result ? JSON.parse(result.value) : [];
-    } catch { return []; }
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
   }
 
-  async function saveEntries(entries) {
-    try {
-      await window.storage.set(ENTRIES_KEY, JSON.stringify(entries), true);
-    } catch(e) { console.error('Save entries failed', e); }
+  /* ── Firebase data access ── */
+  async function fetchEntries() {
+    const { firestore, collection, getDocs, query, orderBy } = window._fb;
+    const q = query(collection(firestore, 'entries'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
   }
 
-  async function loadComments() {
-    try {
-      const result = await window.storage.get(COMMENTS_KEY, true);
-      return result ? JSON.parse(result.value) : {};
-    } catch { return {}; }
+  async function addEntry(data) {
+    const { firestore, collection, addDoc, serverTimestamp } = window._fb;
+    await addDoc(collection(firestore, 'entries'), {
+      ...data,
+      createdAt: serverTimestamp()
+    });
   }
 
-  async function saveComments(comments) {
-    try {
-      await window.storage.set(COMMENTS_KEY, JSON.stringify(comments), true);
-    } catch(e) { console.error('Save comments failed', e); }
+  async function fetchComments(entryId) {
+    const { firestore, collection, getDocs, query, orderBy } = window._fb;
+    const q = query(collection(firestore, `entries/${entryId}/comments`), orderBy('createdAt', 'asc'));
+    const snap = await getDocs(q);
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
   }
 
-  /* ── Render all entries ── */
+  async function addComment(entryId, data) {
+    const { firestore, collection, addDoc, serverTimestamp } = window._fb;
+    await addDoc(collection(firestore, `entries/${entryId}/comments`), {
+      ...data,
+      createdAt: serverTimestamp()
+    });
+  }
+
+  /* ── Render entries ── */
   async function renderEntries() {
     const container = document.getElementById('diary-entries');
     container.innerHTML = `<div class="diary-loading"><div class="spinner"></div><p style="margin-top:16px;font-size:13px;letter-spacing:0.1em;">Loading entries...</p></div>`;
 
-    const entries  = await loadEntries();
-    const comments = await loadComments();
+    // Init Firebase first
+    const ok = await initFirebase();
+    if (!ok) {
+      container.innerHTML = `
+        <div class="diary-empty">
+          <div class="diary-empty-icon">⚙️</div>
+          <p style="font-size:14px;line-height:1.8;color:#4a4a5e;">
+            Firebase is not configured yet.<br>
+            Follow the setup instructions in the HTML comments,<br>
+            then replace the placeholder values in <strong>FIREBASE_CONFIG</strong>.
+          </p>
+        </div>`;
+      return;
+    }
+
+    firebaseReady = true;
+    let entries;
+    try {
+      entries = await fetchEntries();
+    } catch(e) {
+      container.innerHTML = `<div class="diary-empty"><div class="diary-empty-icon">⚠️</div><p>Could not load entries. Check your Firebase config.</p></div>`;
+      return;
+    }
 
     container.innerHTML = '';
 
@@ -1424,18 +1505,18 @@
       return;
     }
 
-    [...entries].reverse().forEach(entry => {
-      const entryComments = comments[entry.id] || [];
+    entries.forEach(entry => {
+      const dateStr = entry.date || (entry.createdAt?.toDate?.()?.toISOString()) || new Date().toISOString();
       const el = document.createElement('div');
       el.className = 'diary-entry';
       el.innerHTML = `
         <div class="entry-header">
           <div class="entry-date-block">
-            <div class="entry-date-day">${getDay(entry.date)}</div>
-            <div class="entry-date-month">${getMonth(entry.date)}</div>
+            <div class="entry-date-day">${getDay(dateStr)}</div>
+            <div class="entry-date-month">${getMonth(dateStr)}</div>
           </div>
           <div class="entry-meta">
-            ${entry.mood ? `<div class="entry-mood">${entry.mood}</div>` : ''}
+            ${entry.mood ? `<div class="entry-mood">${escapeHtml(entry.mood)}</div>` : ''}
             <div class="entry-title">${escapeHtml(entry.title)}</div>
           </div>
         </div>
@@ -1443,11 +1524,11 @@
         <div class="entry-comment-section">
           <button class="entry-comment-toggle" onclick="toggleComments('${entry.id}')">
             💬 &nbsp;Comments
-            <span class="comment-count" id="count-${entry.id}">${entryComments.length}</span>
+            <span class="comment-count" id="count-${entry.id}">…</span>
           </button>
           <div class="entry-comments-area" id="comments-${entry.id}">
             <div class="comment-list" id="comment-list-${entry.id}">
-              ${renderCommentItems(entryComments)}
+              <p style="font-size:12px;color:var(--mist);padding:8px 0;font-style:italic;">Click to load comments...</p>
             </div>
             <div class="comment-form">
               <div class="comment-form-row">
@@ -1462,21 +1543,37 @@
     });
   }
 
-  function renderCommentItems(comments) {
-    if (!comments.length) return '<p style="font-size:12px;color:var(--mist);padding:8px 0;font-style:italic;">No comments yet — be the first!</p>';
-    return comments.map(c => `
-      <div class="comment-item">
-        <div class="comment-avatar" style="background:${stringToColor(c.nick)}">${c.nick.charAt(0).toUpperCase()}</div>
-        <div class="comment-bubble">
-          <div class="comment-nick">${escapeHtml(c.nick)}</div>
-          <div class="comment-text">${escapeHtml(c.text)}</div>
-          <div class="comment-time">${formatDate(c.date)} · ${formatTime(c.date)}</div>
-        </div>
-      </div>`).join('');
+  async function toggleComments(entryId) {
+    const area = document.getElementById(`comments-${entryId}`);
+    area.classList.toggle('open');
+
+    if (area.classList.contains('open')) {
+      const listEl = document.getElementById(`comment-list-${entryId}`);
+      listEl.innerHTML = '<p style="font-size:12px;color:var(--mist);padding:8px 0;">Loading...</p>';
+      try {
+        const comments = await fetchComments(entryId);
+        document.getElementById(`count-${entryId}`).textContent = comments.length;
+        listEl.innerHTML = renderCommentItems(comments);
+      } catch(e) {
+        listEl.innerHTML = '<p style="font-size:12px;color:var(--mist);">Could not load comments.</p>';
+      }
+    }
   }
 
-  function toggleComments(entryId) {
-    document.getElementById(`comments-${entryId}`).classList.toggle('open');
+  function renderCommentItems(comments) {
+    if (!comments.length) return '<p style="font-size:12px;color:var(--mist);padding:8px 0;font-style:italic;">No comments yet — be the first!</p>';
+    return comments.map(c => {
+      const dateStr = c.date || (c.createdAt?.toDate?.()?.toISOString()) || new Date().toISOString();
+      return `
+        <div class="comment-item">
+          <div class="comment-avatar" style="background:${stringToColor(c.nick)}">${escapeHtml(c.nick).charAt(0).toUpperCase()}</div>
+          <div class="comment-bubble">
+            <div class="comment-nick">${escapeHtml(c.nick)}</div>
+            <div class="comment-text">${escapeHtml(c.text)}</div>
+            <div class="comment-time">${formatDate(dateStr)} · ${formatTime(dateStr)}</div>
+          </div>
+        </div>`;
+    }).join('');
   }
 
   async function submitComment(entryId) {
@@ -1492,19 +1589,21 @@
     btn.disabled = true;
     btn.textContent = 'Sending...';
 
-    const comments = await loadComments();
-    if (!comments[entryId]) comments[entryId] = [];
-    comments[entryId].push({ nick, text, date: new Date().toISOString() });
-    await saveComments(comments);
+    try {
+      await addComment(entryId, { nick, text, date: new Date().toISOString() });
+      nickEl.value = '';
+      msgEl.value = '';
+      // Reload comments
+      const comments = await fetchComments(entryId);
+      document.getElementById(`comment-list-${entryId}`).innerHTML = renderCommentItems(comments);
+      document.getElementById(`count-${entryId}`).textContent = comments.length;
+      showToast('Comment posted! 💬');
+    } catch(e) {
+      showToast('Error posting comment ✦');
+    }
 
-    document.getElementById(`comment-list-${entryId}`).innerHTML = renderCommentItems(comments[entryId]);
-    document.getElementById(`count-${entryId}`).textContent = comments[entryId].length;
-
-    nickEl.value = '';
-    msgEl.value = '';
     btn.disabled = false;
     btn.textContent = 'Send';
-    showToast('Comment posted! 💬');
   }
 
   /* ── Mood chips ── */
@@ -1529,31 +1628,28 @@
 
     if (!title) { showToast('Give your entry a title ✦'); return; }
     if (!body)  { showToast('Write something in your entry ✦'); return; }
+    if (!firebaseReady) { showToast('Firebase not ready yet ✦'); return; }
 
     const btn = document.getElementById('diary-submit-btn');
     btn.disabled = true;
     btn.textContent = 'Publishing...';
 
-    const entries = await loadEntries();
-    entries.push({
-      id:    'e' + Date.now(),
-      title,
-      body,
-      mood:  selectedMood,
-      date:  new Date().toISOString(),
-    });
-    await saveEntries(entries);
+    try {
+      await addEntry({ title, body, mood: selectedMood, date: new Date().toISOString() });
 
-    document.getElementById('entry-title').value = '';
-    document.getElementById('entry-body').value  = '';
-    document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('selected'));
-    selectedMood = '';
+      document.getElementById('entry-title').value = '';
+      document.getElementById('entry-body').value  = '';
+      document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('selected'));
+      selectedMood = '';
+
+      await renderEntries();
+      showToast('Entry published ✦');
+    } catch(e) {
+      showToast('Error publishing entry ✦');
+    }
 
     btn.disabled = false;
     btn.textContent = 'Publish Entry →';
-
-    await renderEntries();
-    showToast('Entry published ✦');
   }
 
   /* ── Toast ── */
@@ -1562,16 +1658,6 @@
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2800);
-  }
-
-  /* ── HTML escape ── */
-  function escapeHtml(str) {
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
   }
 
   /* ── Init ── */
